@@ -44,10 +44,6 @@ main { max-width: 860px; margin: 0 auto; padding: clamp(1.5rem,4vw,3rem) clamp(1
 .hero p { color: var(--muted); font-size: 16px; max-width: 520px; font-weight: 300; }
 
 /* ── Ad slots ── */
-.ad-slot { background: var(--surface); border: 1px dashed var(--border2); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--muted); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-align: center; gap: 4px; }
-.ad-top { width: 100%; max-width: 728px; height: 90px; margin: 0 auto 2rem; }
-.ad-btm { width: 100%; max-width: 728px; height: 90px; margin: 2rem auto 0; }
-.ad-side { width: 300px; min-width: 300px; height: 250px; align-self: flex-start; }
 
 /* ── Accordion sections ── */
 .section-wrap { margin-bottom: 10px; }
@@ -284,10 +280,10 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
 
 /* ── Ratio selector cards ── */
 .ratio-select-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 1.25rem 0 1rem; }
-.ratio-card { background: var(--surface2); border: 2px solid transparent; border-radius: 10px; padding: 1rem; cursor: pointer; text-align: center; transition: border-color 0.18s, background 0.18s, transform 0.15s; }
+.ratio-card { background: var(--surface2); border: 2px solid transparent; border-radius: 10px; padding: 1rem; cursor: pointer; text-align: left; transition: border-color 0.18s, background 0.18s, transform 0.15s; }
 .ratio-card:hover { border-color: rgba(37,99,235,0.3); transform: translateY(-1px); }
 .ratio-card.selected { border-color: var(--accent); background: #eff6ff; }
-.ratio-card-label { font-family: var(--font-mono); font-size: 22px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+.ratio-card-label { font-family: var(--font-mono); font-size: 22px; font-weight: 500; color: var(--text); white-space: nowrap; }
 .ratio-card.selected .ratio-card-label { color: var(--accent); }
 .ratio-card-name { font-family: var(--font-display); font-weight: 700; font-size: 13px; color: var(--text); margin-bottom: 6px; }
 .ratio-card-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
@@ -301,8 +297,9 @@ footer a { color: var(--muted); text-decoration: underline; }
 @media (max-width: 680px) {
   .field-group { grid-template-columns: 1fr; }
   .results-layout { flex-direction: column; }
-  .ad-side { width: 100%; min-width: 0; height: 100px; }
-  .ing-table th:nth-child(2), .ing-row td:nth-child(2) { display: none; }
+
+  .ing-table th:nth-child(4), .ing-row td:nth-child(4) { display: none; }
+  .ratio-select-grid { grid-template-columns: 1fr; gap: 8px; }
 }
 </style>
 </head>
@@ -315,18 +312,16 @@ footer a { color: var(--muted); text-decoration: underline; }
 
 <main>
 
-  <!-- Top ad -->
-  <div class="ad-slot ad-top">
-    <!-- ADSENSE: replace this div with your <ins> tag
-    <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
-         data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX"></ins>
-    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script> -->
-    <div>AD SPACE — 728×90</div><div style="font-size:10px;margin-top:2px">Google AdSense leaderboard</div>
-  </div>
 
   <div class="hero">
     <h1>Build the <em>perfect</em><br>endurance drink.</h1>
-    <p>Enter your mix, choose your sport, and dial in exactly what to add to hit your ideal carb ratio.</p>
+    <p>This tool helps you maximise total carbohydrate energy (g/hr) in your drink mix by optimising the glucose-to-fructose ratio and carb concentration.</p>
+    <ul style="margin:0.75rem 0 0; padding-left:1.25rem; font-size:15px; color:var(--muted); line-height:1.9;">
+      <li>Already have a mix you like? Enter its ingredients and the tool will calculate exactly what to add to hit your energy target.</li>
+      <li>Building from scratch? Skip the ingredient step and choose what you have available to add.</li>
+      <li>Built-in limits for absorption ceilings and concentration keep recommendations within safe ranges — but build up your gut tolerance gradually.</li>
+      <li><strong style="color:var(--text);">Drink mix only</strong> — this tool does not account for gels, bars, or other carb sources. If you take gels during your session, factor that carb intake into your total energy budget when setting your target here.</li>
+    </ul>
   </div>
 
   <!-- ══════════════ SECTION 1: SPORT ══════════════ -->
@@ -577,10 +572,6 @@ footer a { color: var(--muted); text-decoration: underline; }
     </div><!-- /body-results -->
   </div><!-- /wrap-results -->
 
-  <div class="ad-slot ad-btm">
-    <!-- ADSENSE: replace with your <ins> tag -->
-    <div>AD SPACE — 728×90</div><div style="font-size:10px;margin-top:2px">Google AdSense leaderboard</div>
-  </div>
 
 </main>
 
@@ -635,33 +626,6 @@ const SPORTS = [
     mixingTip:'Sip from your poolside bottle at wall turns or during rest intervals. Open-water athletes: use a tow float bottle for mid-swim fuelling. Fill to {BOTTLE}.',
     hints:['Short (<35 g)','Optimal (35–60 g)','Long (>60 g)'],
     tips:[{label:'Typical range',val:'40–60 g/hr',note:'For sessions >60 min'},{label:'Concentration',val:'8–12%',note:'Horizontal = better tolerance'},{label:'Sweat losses',val:'Lower',note:'Water masks thirst cues'},{label:'Fluid intake',val:'300–500 ml/hr',note:'Easy to underdrink'}]
-  },
-  { id:'triathlon',name:'Triathlon',         icon:'🏅', sub:'Sprint to Ironman',
-    bannerText:'The bike leg is your primary fuelling window. Reduce intake on the run to manage impact-related GI stress. Plan specific nutrition for T1 and T2 transitions.',
-    containerLabel:'Bike bottle (ml)', containerDefault:750,
-    energyMin:30, energyMax:110, energyDefault:70, ratioDefault:0.8, concWarningPct:11,
-    concWarningMsg:'⚠ Concentration above 11% may cause GI issues on the run leg. Use a more dilute mix approaching T2.',
-    mixingTip:'Prepare bike bottles with this mix. For the run, dilute to 50–60% concentration. Take a gel or chew during T2. Fill bike bottle to {BOTTLE}.',
-    hints:['Sprint (<50 g)','Olympic (50–80 g)','Long (>80 g)'],
-    tips:[{label:'Bike fuelling',val:'60–90 g/hr',note:'Primary carb window'},{label:'Run fuelling',val:'40–60 g/hr',note:'Reduce to manage GI'},{label:'Concentration',val:'8–10%',note:'Dilute for run leg'},{label:'Fluid intake',val:'500–800 ml/hr',note:'Varies hugely by distance'}]
-  },
-  { id:'rowing',   name:'Rowing',            icon:'🚣', sub:'Ergo, on water',
-    bannerText:'Rowing engages virtually every major muscle group, demanding very high energy outputs. Seated position allows reasonable GI tolerance. Pre-loading is critical for short, high-intensity pieces.',
-    containerLabel:'Bottle size (ml)', containerDefault:750,
-    energyMin:30, energyMax:100, energyDefault:60, ratioDefault:0.8, concWarningPct:12,
-    concWarningMsg:'⚠ Concentration above 12% may cause discomfort. Consider a larger bottle.',
-    mixingTip:'Fill your bottle to {BOTTLE}. For high-intensity pieces, prioritise pre-session carb loading. Sip between intervals for longer ergo sessions.',
-    hints:['Short (<45 g)','Optimal (45–75 g)','Long (>75 g)'],
-    tips:[{label:'Typical range',val:'45–75 g/hr',note:'Whole-body demand is high'},{label:'Concentration',val:'8–12%',note:'Seated = decent tolerance'},{label:'Fluid intake',val:'600–800 ml/hr',note:'High sweat rates'},{label:'Key strategy',val:'Pre-load',note:'Critical for sub-30 min efforts'}]
-  },
-  { id:'xcski',    name:'XC Skiing',         icon:'⛷️', sub:'Classic & skate',
-    bannerText:'Cross-country skiing demands some of the highest VO₂max outputs of any sport. Cold air suppresses thirst and can freeze liquids — use insulated flasks and drink on a schedule, not when thirsty.',
-    containerLabel:'Insulated flask (ml)', containerDefault:500,
-    energyMin:40, energyMax:110, energyDefault:80, ratioDefault:0.8, concWarningPct:14,
-    concWarningMsg:'⚠ Use an insulated flask in sub-zero conditions. High concentration lowers freezing point slightly but won\'t prevent freezing entirely.',
-    mixingTip:'Use an insulated flask, fill to {BOTTLE}. Cold suppresses thirst — set a timer to drink every 15–20 min regardless of how you feel.',
-    hints:['Easy (<60 g)','Optimal (60–90 g)','Race (>90 g)'],
-    tips:[{label:'Typical range',val:'60–90 g/hr',note:'Among highest of any sport'},{label:'Concentration',val:'8–12%',note:'Cold slows gastric emptying'},{label:'Fluid intake',val:'400–700 ml/hr',note:'Cold masks thirst cues'},{label:'Key risk',val:'Dehydration',note:'Insulated flask essential'}]
   },
 ];
 
@@ -802,9 +766,11 @@ function renderRatioGrid() {
   if (!grid) return;
   grid.innerHTML = RATIO_OPTIONS.map(o => `
     <div class="ratio-card${selectedRatio === o.value ? ' selected' : ''}" onclick="selectRatio(${o.value})">
-      <div class="ratio-card-label">${o.label}</div>
       <div class="ratio-card-name">${o.name}</div>
-      <div class="ratio-card-desc">${o.desc}</div>
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-top:4px;">
+        <div class="ratio-card-label">${o.label}</div>
+        <div class="ratio-card-desc" style="text-align:left;">${o.desc}</div>
+      </div>
     </div>`).join('');
 }
 
@@ -1146,20 +1112,20 @@ function recalc() {
 
   // How much extra glucose/fructose the base mix still needs
   let gNeed = Math.max(0, glucoseTarget  - (baseData.glucose  || 0));
-  const fNeed = Math.max(0, fructoseTarget - (baseData.fructose || 0));
+  let fNeed = Math.max(0, fructoseTarget - (baseData.fructose || 0));
 
-  // Cap high-osmolality glucose sources at 10% concentration to avoid GI issues
-  const highOsmSources = ['maltodextrin','glucose','trehalose','cluster'];
-  const glucoseSourceIsHighOsm = highOsmSources.some(v => selectedAddables.has(v));
+  // Hard 10% concentration cap — applies universally to all carb sources
+  const maxTotalAdd = Math.max(0, bottle * 0.10 - (baseData.totalCarbs || 0));
   let concCapNote = null;
-  if (glucoseSourceIsHighOsm && gNeed > 0) {
-    const maxTotalCarbs   = bottle * 0.10;
-    const maxGluAdd       = Math.max(0, maxTotalCarbs - (baseData.totalCarbs || 0) - fNeed);
-    if (gNeed > maxGluAdd) {
-      gNeed = maxGluAdd;
-      concCapNote = `Addition capped — adding more maltodextrin, dextrose or trehalose beyond this point would push concentration above 10%, increasing GI risk. To reach your full energy target, increase your bottle size or swap some glucose for fructose.`;
-    }
+  const rawNeed = gNeed + fNeed;
+  if (rawNeed > maxTotalAdd + 0.05) {
+    const scale = rawNeed > 0 ? maxTotalAdd / rawNeed : 0;
+    gNeed = gNeed * scale;
+    fNeed = fNeed * scale;
+    concCapNote = `Addition capped at 10% concentration — adding more would increase GI risk. To reach your full energy target, increase your bottle size.`;
   }
+
+  const glucoseSourceIsHighOsm = ['maltodextrin','glucose','trehalose','cluster'].some(v => selectedAddables.has(v));
 
   // Classify available addables
   const hasPureGlucose  = ['maltodextrin','glucose','trehalose','cluster'].some(v => selectedAddables.has(v));
@@ -1238,15 +1204,22 @@ function recalc() {
     const mixedForGlu = gNeed > 0 ? gNeed / 0.5 : Infinity;
     const mixedForFru = fNeed > 0 ? fNeed / 0.5 : Infinity;
 
-    // Add enough mixed to fill the larger gap (targets the user's energy slider)
-    const mixedB = Math.max(0,
-      isFinite(mixedForGlu) ? mixedForGlu : 0,
-      isFinite(mixedForFru) ? mixedForFru : 0
+    // Add enough mixed to fill the larger gap, hard-capped at 10% concentration
+    let mixedB = Math.min(
+      maxTotalAdd,
+      Math.max(0,
+        isFinite(mixedForGlu) ? mixedForGlu : 0,
+        isFinite(mixedForFru) ? mixedForFru : 0
+      )
     );
+    if (mixedB < Math.max(isFinite(mixedForGlu) ? mixedForGlu : 0, isFinite(mixedForFru) ? mixedForFru : 0) - 0.05) {
+      concCapNote = `Addition capped at 10% concentration — adding more ${mixedLabel} would increase GI risk. To reach your full energy target, increase your bottle size.`;
+    }
     const addB_glu = mixedB * 0.5, addB_fru = mixedB * 0.5;
 
     const mixedBullets = [
       `Adds ${Math.round(mixedB)}g ${mixedLabel} (${Math.round(addB_glu)}g glucose + ${Math.round(addB_fru)}g fructose) for maximum energy toward your ${target}g/hr goal.`,
+      ...(concCapNote ? [concCapNote] : []),
       `${mixedLabel} adds glucose and fructose in a fixed 1:1 ratio — the glucose:fructose ratio cannot be adjusted independently.`,
     ];
     scenarioB = {
