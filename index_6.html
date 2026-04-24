@@ -34,9 +34,6 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-body);
 .logo { font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; color: var(--text); text-decoration: none; cursor: pointer; }
 .logo span { color: var(--accent); }
 .badge { font-family: var(--font-mono); font-size: 10px; color: var(--muted); border: 1px solid var(--border2); border-radius: 4px; padding: 2px 8px; letter-spacing: 0.08em; }
-.lang-toggle { display:flex; gap:3px; background:var(--surface2); border:1px solid var(--border2); border-radius:6px; padding:2px; }
-.lang-btn { font-family:var(--font-mono); font-size:11px; font-weight:500; color:var(--muted); background:transparent; border:none; border-radius:4px; padding:3px 9px; cursor:pointer; letter-spacing:0.04em; transition:background 0.15s, color 0.15s; }
-.lang-btn.active { background:var(--surface); color:var(--text); box-shadow:0 1px 3px rgba(0,0,0,0.1); }
 
 main { max-width: 860px; margin: 0 auto; padding: clamp(1.5rem,4vw,3rem) clamp(1rem,4vw,2rem); }
 
@@ -47,6 +44,10 @@ main { max-width: 860px; margin: 0 auto; padding: clamp(1.5rem,4vw,3rem) clamp(1
 .hero p { color: var(--muted); font-size: 16px; max-width: 520px; font-weight: 300; }
 
 /* ── Ad slots ── */
+.ad-slot { background: var(--surface); border: 1px dashed var(--border2); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--muted); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-align: center; gap: 4px; }
+.ad-top { width: 100%; max-width: 728px; height: 90px; margin: 0 auto 2rem; }
+.ad-btm { width: 100%; max-width: 728px; height: 90px; margin: 2rem auto 0; }
+.ad-side { width: 300px; min-width: 300px; height: 250px; align-self: flex-start; }
 
 /* ── Accordion sections ── */
 .section-wrap { margin-bottom: 10px; }
@@ -283,10 +284,10 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
 
 /* ── Ratio selector cards ── */
 .ratio-select-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 1.25rem 0 1rem; }
-.ratio-card { background: var(--surface2); border: 2px solid transparent; border-radius: 10px; padding: 1rem; cursor: pointer; text-align: left; transition: border-color 0.18s, background 0.18s, transform 0.15s; }
+.ratio-card { background: var(--surface2); border: 2px solid transparent; border-radius: 10px; padding: 1rem; cursor: pointer; text-align: center; transition: border-color 0.18s, background 0.18s, transform 0.15s; }
 .ratio-card:hover { border-color: rgba(37,99,235,0.3); transform: translateY(-1px); }
 .ratio-card.selected { border-color: var(--accent); background: #eff6ff; }
-.ratio-card-label { font-family: var(--font-mono); font-size: 22px; font-weight: 500; color: var(--text); white-space: nowrap; }
+.ratio-card-label { font-family: var(--font-mono); font-size: 22px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
 .ratio-card.selected .ratio-card-label { color: var(--accent); }
 .ratio-card-name { font-family: var(--font-display); font-weight: 700; font-size: 13px; color: var(--text); margin-bottom: 6px; }
 .ratio-card-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
@@ -300,9 +301,8 @@ footer a { color: var(--muted); text-decoration: underline; }
 @media (max-width: 680px) {
   .field-group { grid-template-columns: 1fr; }
   .results-layout { flex-direction: column; }
-
-  .ing-table th:nth-child(4), .ing-row td:nth-child(4) { display: none; }
-  .ratio-select-grid { grid-template-columns: 1fr; gap: 8px; }
+  .ad-side { width: 100%; min-width: 0; height: 100px; }
+  .ing-table th:nth-child(2), .ing-row td:nth-child(2) { display: none; }
 }
 </style>
 </head>
@@ -310,27 +310,23 @@ footer a { color: var(--muted); text-decoration: underline; }
 
 <header class="site-header">
   <span class="logo" onclick="resetAll()">Mix<span>Right</span></span>
-  <div style="display:flex;align-items:center;gap:10px;">
-    <span class="badge" data-i18n="badge">ENDURANCE DRINK CALCULATOR</span>
-    <div class="lang-toggle">
-      <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
-    </div>
-  </div>
+  <span class="badge">ENDURANCE DRINK CALCULATOR</span>
 </header>
 
 <main>
 
+  <!-- Top ad -->
+  <div class="ad-slot ad-top">
+    <!-- ADSENSE: replace this div with your <ins> tag
+    <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
+         data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX"></ins>
+    <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script> -->
+    <div>AD SPACE — 728×90</div><div style="font-size:10px;margin-top:2px">Google AdSense leaderboard</div>
+  </div>
 
   <div class="hero">
-    <h1 data-i18n="heroH1">Build the <em>perfect</em><br>endurance drink.</h1>
-    <p data-i18n="heroP">This tool helps you maximise total carbohydrate energy (g/hr) in your drink mix by optimising the glucose-to-fructose ratio and carb concentration.</p>
-    <ul style="margin:0.75rem 0 0; padding-left:1.25rem; font-size:15px; color:var(--muted); line-height:1.9;">
-      <li data-i18n="heroLi1">Already have a mix you like? Enter its ingredients and the tool will calculate exactly what to add to hit your energy target.</li>
-      <li data-i18n="heroLi2">Building from scratch? Skip the ingredient step and choose what you have available to add.</li>
-      <li data-i18n="heroLi3">Built-in limits for absorption ceilings and concentration keep recommendations within safe ranges — but build up your gut tolerance gradually.</li>
-      <li data-i18n="heroLi4"><strong style="color:var(--text);">Drink mix only</strong> — this tool does not account for gels, bars, or other carb sources. If you take gels during your session, factor that carb intake into your total energy budget when setting your target here.</li>
-    </ul>
+    <h1>Build the <em>perfect</em><br>endurance drink.</h1>
+    <p>Enter your mix, choose your sport, and dial in exactly what to add to hit your ideal carb ratio.</p>
   </div>
 
   <!-- ══════════════ SECTION 1: SPORT ══════════════ -->
@@ -340,9 +336,9 @@ footer a { color: var(--muted); text-decoration: underline; }
       <div class="section-label">
         <div class="section-title-text">
           <span class="tooltip-wrap">
-            <span data-i18n="s1Title">Choose your sport</span>
+            Choose your sport
             <span class="tooltip-icon" tabindex="0">?</span>
-            <span class="tooltip-bubble" data-i18n="s1Tooltip">Different sports have very different fuelling needs. Running creates GI stress from impact, so lower carb intake and diluted mixes are recommended. Cycling allows higher carb rates due to the seated position. Swimming suppresses thirst in cool water. Select your sport to get tailored targets, concentration warnings, and mixing tips.</span>
+            <span class="tooltip-bubble">Different sports have very different fuelling needs. Running creates GI stress from impact, so lower carb intake and diluted mixes are recommended. Cycling allows higher carb rates due to the seated position. Swimming suppresses thirst in cool water. Select your sport to get tailored targets, concentration warnings, and mixing tips.</span>
           </span>
         </div>
         <div class="section-subtitle" id="sub-sport"></div>
@@ -352,7 +348,7 @@ footer a { color: var(--muted); text-decoration: underline; }
     <div class="section-body open" id="body-sport">
       <div class="sport-grid" id="sport-grid"></div>
       <div class="btn-row">
-        <button class="btn-primary" data-i18n="s1Btn" onclick="confirmSport()">Confirm sport →</button>
+        <button class="btn-primary" onclick="confirmSport()">Confirm sport →</button>
       </div>
     </div>
   </div>
@@ -364,9 +360,9 @@ footer a { color: var(--muted); text-decoration: underline; }
       <div class="section-label">
         <div class="section-title-text">
           <span class="tooltip-wrap">
-            <span data-i18n="s2Title">Enter your drink mix ingredients</span>
+            Enter your drink mix ingredients
             <span class="tooltip-icon" tabindex="0">?</span>
-            <span class="tooltip-bubble" data-i18n="s2Tooltip">List every ingredient from your drink mix label — including salt, electrolytes, and BCAAs. Carbs determine the glucose:fructose ratio, but non-carb ingredients still add to total powder weight, which affects concentration. Getting concentration right is key to avoiding GI issues during exercise.</span>
+            <span class="tooltip-bubble">List every ingredient from your drink mix label — including salt, electrolytes, and BCAAs. Carbs determine the glucose:fructose ratio, but non-carb ingredients still add to total powder weight, which affects concentration. Getting concentration right is key to avoiding GI issues during exercise.</span>
           </span>
         </div>
         <div class="section-subtitle" id="sub-ing"></div>
@@ -375,36 +371,20 @@ footer a { color: var(--muted); text-decoration: underline; }
     </div>
     <div class="section-body" id="body-ing">
 
-      <!-- No mix option -->
-      <div onclick="skipToAddables()" style="display:flex; align-items:center; gap:14px; padding:14px 16px; background:var(--surface2); border:2px dashed var(--border2); border-radius:10px; cursor:pointer; margin-bottom:1.25rem; transition:border-color 0.2s, background 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border2)'">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" style="flex-shrink:0;color:var(--muted)"><circle cx="11" cy="11" r="9.5" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 11h7M11 7.5v7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <div>
-          <div data-i18n="s2NoMix" style="font-weight:600; font-size:14px; color:var(--text);">No starting drink mix</div>
-          <div data-i18n="s2NoMixSub" style="font-size:12px; color:var(--muted); margin-top:2px;">I'm building a custom mix from scratch — skip this step</div>
-        </div>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-left:auto;flex-shrink:0;color:var(--muted)"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-
-      <div style="display:flex; align-items:center; gap:10px; margin-bottom:1.25rem;">
-        <div style="flex:1; height:1px; background:var(--border);"></div>
-        <span data-i18n="s2Divider" style="font-size:11px; color:var(--muted); letter-spacing:0.06em; text-transform:uppercase;">or enter your existing mix below</span>
-        <div style="flex:1; height:1px; background:var(--border);"></div>
-      </div>
-
       <!-- Ingredient table -->
       <table class="ing-table">
         <thead>
           <tr>
             <th style="width:22px">#</th>
+            <th>Ingredient name <span style="font-weight:400;color:var(--muted);font-size:10px">(type or pick)</span></th>
+            <th style="width:90px">Grams (g)</th>
             <th>
               <span class="tooltip-wrap">
-                <span data-i18n="s2ThCarbType">Carb type</span>
+                Carb type
                 <span class="tooltip-icon" tabindex="0">?</span>
-                <span class="tooltip-bubble" data-i18n="s2ThCarbTypeTooltip">Select the type of carbohydrate. This determines the glucose:fructose split. Maltodextrin and glucose are pure glucose. Sucrose and isomaltulose are 50/50. Fructose is pure fructose. Select "Non-carb" for salt, BCAAs, and electrolytes — these don't affect the ratio, but their weight is included in total powder to accurately calculate concentration.</span>
+                <span class="tooltip-bubble">Select the type of carbohydrate. This determines the glucose:fructose split. Maltodextrin and glucose are pure glucose. Sucrose and isomaltulose are 50/50. Fructose is pure fructose. Select "Non-carb" for salt, BCAAs, and electrolytes — these don't affect the ratio, but their weight is included in total powder to accurately calculate concentration.</span>
               </span>
             </th>
-            <th data-i18n="s2ThGrams" style="width:90px">Grams (g)</th>
-            <th data-i18n="s2ThContributes" style="width:110px">Contributes</th>
             <th style="width:34px"></th>
           </tr>
         </thead>
@@ -412,15 +392,15 @@ footer a { color: var(--muted); text-decoration: underline; }
       </table>
       <button class="btn-add-row" onclick="addRow()">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <span data-i18n="s2AddRow">Add ingredient</span>
+        Add ingredient
       </button>
 
       <div class="total-row">
         <span>
           <span class="tooltip-wrap">
-            <span data-i18n="s2TotalLabel">Total carb powder</span>
+            Total carb powder
             <span class="tooltip-icon" tabindex="0">?</span>
-            <span class="tooltip-bubble" data-i18n="s2TotalTooltip">The total weight of all ingredients — carbs and non-carbs combined. This is used to calculate how concentrated your drink is when dissolved in water. A higher total powder weight in the same bottle size means a more concentrated drink, which can slow gastric emptying and increase GI risk.</span>
+            <span class="tooltip-bubble">The total weight of all ingredients — carbs and non-carbs combined. This is used to calculate how concentrated your drink is when dissolved in water. A higher total powder weight in the same bottle size means a more concentrated drink, which can slow gastric emptying and increase GI risk.</span>
           </span>
         </span>
         <span class="total-val"><span id="total-carbs-g">0</span>g carbs (ratio) &nbsp;|&nbsp; <span id="total-powder-g">0</span>g total powder (concentration)</span>
@@ -428,7 +408,7 @@ footer a { color: var(--muted); text-decoration: underline; }
 
       <!-- Live mix breakdown -->
       <div id="ing-preview" style="display:none; margin-top:1.25rem;">
-        <div class="sub-label" data-i18n="s2MixBreakdown" style="margin-top:0; margin-bottom:0.75rem;">Your mix breakdown</div>
+        <div class="sub-label" style="margin-top:0; margin-bottom:0.75rem;">Your mix breakdown</div>
         <div style="display:flex; gap:1.5rem; align-items:center;">
           <div style="flex-shrink:0;">
             <svg width="120" height="120" viewBox="0 0 120 120">
@@ -443,21 +423,21 @@ footer a { color: var(--muted); text-decoration: underline; }
           </div>
           <div style="flex:1; min-width:0;">
             <div class="metric-grid" style="grid-template-columns:repeat(2,1fr); margin-bottom:0.5rem;">
-              <div class="metric"><div class="metric-label" data-i18n="s2TotalCarbs">Total carbs</div><div class="metric-value"><span id="rBaseCarbs">—</span><span class="metric-unit">g</span></div></div>
-              <div class="metric"><div class="metric-label" data-i18n="s2CurrentRatio">Current ratio</div><div class="metric-value" style="font-size:18px;">1:<span id="rBaseRatio">—</span></div></div>
-              <div class="metric"><div class="metric-label" data-i18n="s2GlucoseEquiv">Glucose equiv.</div><div class="metric-value"><span id="rBaseGlucose">—</span><span class="metric-unit">g</span></div></div>
-              <div class="metric"><div class="metric-label" data-i18n="s2FructoseEquiv">Fructose equiv.</div><div class="metric-value"><span id="rBaseFructose">—</span><span class="metric-unit">g</span></div></div>
+              <div class="metric"><div class="metric-label">Total carbs</div><div class="metric-value"><span id="rBaseCarbs">—</span><span class="metric-unit">g</span></div></div>
+              <div class="metric"><div class="metric-label">Current ratio</div><div class="metric-value" style="font-size:18px;">1:<span id="rBaseRatio">—</span></div></div>
+              <div class="metric"><div class="metric-label">Glucose equiv.</div><div class="metric-value"><span id="rBaseGlucose">—</span><span class="metric-unit">g</span></div></div>
+              <div class="metric"><div class="metric-label">Fructose equiv.</div><div class="metric-value"><span id="rBaseFructose">—</span><span class="metric-unit">g</span></div></div>
             </div>
             <div style="display:flex; gap:12px;">
-              <span style="font-size:12px; color:var(--muted); display:flex; align-items:center; gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#2563eb;display:inline-block;flex-shrink:0;"></span><span data-i18n="carbGlucose">Glucose</span></span>
-              <span style="font-size:12px; color:var(--muted); display:flex; align-items:center; gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#ea580c;display:inline-block;flex-shrink:0;"></span><span data-i18n="carbFructose">Fructose</span></span>
+              <span style="font-size:12px; color:var(--muted); display:flex; align-items:center; gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#2563eb;display:inline-block;flex-shrink:0;"></span>Glucose</span>
+              <span style="font-size:12px; color:var(--muted); display:flex; align-items:center; gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#ea580c;display:inline-block;flex-shrink:0;"></span>Fructose</span>
             </div>
           </div>
         </div>
       </div>
 
       <div class="btn-row" style="margin-top:1rem;">
-        <button class="btn-primary" data-i18n="s2Btn" onclick="confirmIngredients()">Next: what can you add? →</button>
+        <button class="btn-primary" onclick="confirmIngredients()">Next: what can you add? →</button>
       </div>
 
     </div>
@@ -470,9 +450,9 @@ footer a { color: var(--muted); text-decoration: underline; }
       <div class="section-label">
         <div class="section-title-text">
           <span class="tooltip-wrap">
-            <span data-i18n="s3Title">What you have available to add</span>
+            What you have available to add
             <span class="tooltip-icon" tabindex="0">?</span>
-            <span class="tooltip-bubble" data-i18n="s3Tooltip">Select every carbohydrate ingredient you have at home that you could add to your mix. We'll calculate the best combination to hit your target ratio using only what's available to you. For example, if you only have sucrose (table sugar), we can still optimise — it just limits how precisely we can hit the ideal 1:0.8 ratio.</span>
+            <span class="tooltip-bubble">Select every carbohydrate ingredient you have at home that you could add to your mix. We'll calculate the best combination to hit your target ratio using only what's available to you. For example, if you only have sucrose (table sugar), we can still optimise — it just limits how precisely we can hit the ideal 1:0.8 ratio.</span>
           </span>
         </div>
         <div class="section-subtitle" id="sub-addables"></div>
@@ -481,14 +461,14 @@ footer a { color: var(--muted); text-decoration: underline; }
     </div>
     <div class="section-body" id="body-addables">
 
-      <p data-i18n="s3Desc" style="font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:1rem;">Select everything you have in your cupboard that you could add to your drink mix. We'll work out the best combination to get as close as possible to your target ratio.</p>
+      <p style="font-size:13px; color:var(--muted); line-height:1.7; margin-bottom:1rem;">Select everything you have in your cupboard that you could add to your drink mix. We'll work out the best combination to get as close as possible to your target ratio.</p>
 
       <div class="addables-grid" id="addables-grid"></div>
 
       <div class="addables-note" id="addables-note" style="display:none;"></div>
 
       <div class="btn-row" style="margin-top:1.25rem;">
-        <button class="btn-primary" data-i18n="s3Btn" onclick="confirmAddables()">Calculate my mix →</button>
+        <button class="btn-primary" onclick="confirmAddables()">Calculate my mix →</button>
       </div>
 
     </div>
@@ -502,9 +482,9 @@ footer a { color: var(--muted); text-decoration: underline; }
       <div class="section-label">
         <div class="section-title-text">
           <span class="tooltip-wrap">
-            <span data-i18n="s4Title">Set your targets</span>
+            Set your targets
             <span class="tooltip-icon" tabindex="0">?</span>
-            <span class="tooltip-bubble" data-i18n="s4Tooltip">Choose your glucose:fructose ratio target. The ratio determines how your carb intake is split between the two transporters in your gut (SGLT-1 for glucose, GLUT-5 for fructose). A higher fructose proportion allows more total carbs to be absorbed per hour, but requires gut training to avoid GI distress.</span>
+            <span class="tooltip-bubble">Choose your glucose:fructose ratio target. The ratio determines how your carb intake is split between the two transporters in your gut (SGLT-1 for glucose, GLUT-5 for fructose). A higher fructose proportion allows more total carbs to be absorbed per hour, but requires gut training to avoid GI distress.</span>
           </span>
         </div>
         <div class="section-subtitle" id="sub-targets"></div>
@@ -514,28 +494,28 @@ footer a { color: var(--muted); text-decoration: underline; }
     <div class="section-body" id="body-targets">
       <div class="sport-tips" id="targets-tips-grid"></div>
 
-      <div class="sub-label" data-i18n="s4RatioLabel" style="margin-top:1.5rem;">Glucose:fructose ratio</div>
-      <p data-i18n="s4RatioDesc" style="font-size:13px; color:var(--muted); line-height:1.7; margin:0.5rem 0 0.85rem;">Your gut uses two separate intestinal transporters simultaneously — SGLT-1 for glucose and GLUT-5 for fructose. Combining both lets you absorb significantly more carbs per hour than glucose alone. Select the ratio that matches your experience level and how well you've trained your gut.</p>
+      <div class="sub-label" style="margin-top:1.5rem;">Glucose:fructose ratio</div>
+      <p style="font-size:13px; color:var(--muted); line-height:1.7; margin:0.5rem 0 0.85rem;">Your gut uses two separate intestinal transporters simultaneously — SGLT-1 for glucose and GLUT-5 for fructose. Combining both lets you absorb significantly more carbs per hour than glucose alone. Select the ratio that matches your experience level and how well you've trained your gut.</p>
       <div class="ratio-select-grid" id="ratio-grid"></div>
 
-      <div class="sub-label" data-i18n="s4BottleLabel" style="margin-top:1.5rem;">Bottle size</div>
-      <p data-i18n="s4BottleDesc" style="font-size:13px; color:var(--muted); line-height:1.7; margin:0.5rem 0 0.85rem;">Your bottle size determines the maximum carb concentration. High-osmolality sources (maltodextrin, dextrose, trehalose) should stay below 10% concentration to avoid GI distress — so a larger bottle allows a higher total energy intake.</p>
+      <div class="sub-label" style="margin-top:1.5rem;">Bottle size</div>
+      <p style="font-size:13px; color:var(--muted); line-height:1.7; margin:0.5rem 0 0.85rem;">Your bottle size determines the maximum carb concentration. High-osmolality sources (maltodextrin, dextrose, trehalose) should stay below 10% concentration to avoid GI distress — so a larger bottle allows a higher total energy intake.</p>
       <div style="display:flex; align-items:center; gap:12px;">
         <input type="number" class="field-input" id="targetBottleSizeInput" min="100" max="2000" step="50" value="750" style="width:130px;" oninput="checkTargetConcWarning()">
-        <span data-i18n="s4MlUnit" style="font-size:14px; color:var(--muted); font-family:var(--font-mono);">ml</span>
+        <span style="font-size:14px; color:var(--muted); font-family:var(--font-mono);">ml</span>
       </div>
 
-      <div class="sub-label" data-i18n="s4EnergyLabel" style="margin-top:1.5rem;">Target energy intake</div>
-      <p data-i18n="s4EnergyDesc" style="font-size:13px; color:var(--muted); line-height:1.7; margin:0.5rem 0 0.85rem;">How many grams of carbohydrate per hour you're aiming for. Your sport's typical range is shown above — start conservatively and increase over time as your gut adapts.</p>
+      <div class="sub-label" style="margin-top:1.5rem;">Target energy intake</div>
+      <p style="font-size:13px; color:var(--muted); line-height:1.7; margin:0.5rem 0 0.85rem;">How many grams of carbohydrate per hour you're aiming for. Your sport's typical range is shown above — start conservatively and increase over time as your gut adapts.</p>
       <div style="display:flex; align-items:center; gap:12px;">
         <input type="number" class="field-input" id="targetEnergyInput" min="20" max="200" step="5" value="75" style="width:130px;" oninput="checkTargetConcWarning()">
-        <span data-i18n="s4GhrUnit" style="font-size:14px; color:var(--muted); font-family:var(--font-mono);">g / hr</span>
+        <span style="font-size:14px; color:var(--muted); font-family:var(--font-mono);">g / hr</span>
         <span id="target-energy-hint" style="font-size:12px; color:var(--muted); font-family:var(--font-mono);"></span>
       </div>
       <div id="targets-conc-warning" style="display:none; margin-top:0.75rem; padding:0.65rem 0.9rem; background:#fff7ed; border:1px solid #fed7aa; border-radius:8px; font-size:12px; color:#9a3412; line-height:1.6; font-family:var(--font-body);"></div>
 
       <div class="btn-row">
-        <button class="btn-primary" data-i18n="s4Btn" onclick="confirmTargets()">Calculate my mix →</button>
+        <button class="btn-primary" onclick="confirmTargets()">Calculate my mix →</button>
       </div>
     </div>
   </div>
@@ -545,7 +525,7 @@ footer a { color: var(--muted); text-decoration: underline; }
     <div class="section-header" id="hdr-results" onclick="toggleSection('results')">
       <div class="section-num" id="num-results">5</div>
       <div class="section-label">
-        <div class="section-title-text" data-i18n="s5Title">Your results</div>
+        <div class="section-title-text">Your results</div>
         <div class="section-subtitle" id="sub-results"></div>
       </div>
       <div class="section-chevron">&#8964;</div>
@@ -560,12 +540,12 @@ footer a { color: var(--muted); text-decoration: underline; }
           <div class="sport-tips" id="sport-tips-grid"></div>
 
           <!-- What to add -->
-          <div class="sub-label" data-i18n="s5WhatToAdd">What to add to your mix</div>
+          <div class="sub-label">What to add to your mix</div>
           <div class="metric-grid">
-            <div class="metric accent"><div class="metric-label" data-i18n="s5TotalToAdd">Total to add</div><div class="metric-value"><span id="r-totalAdd">—</span><span class="metric-unit">g</span></div></div>
-            <div class="metric"><div class="metric-label" data-i18n="s5Concentration">Concentration</div><div class="metric-value"><span id="r-conc">—</span><span class="metric-unit">%</span></div></div>
-            <div class="metric"><div class="metric-label" data-i18n="s5TotalPowder">Total powder</div><div class="metric-value"><span id="r-total">—</span><span class="metric-unit">g</span></div></div>
-            <div class="metric"><div class="metric-label" data-i18n="s5TotalCarbs">Total carbs</div><div class="metric-value"><span id="r-totalCarbs">—</span><span class="metric-unit">g</span></div></div>
+            <div class="metric accent"><div class="metric-label">Total to add</div><div class="metric-value"><span id="r-totalAdd">—</span><span class="metric-unit">g</span></div></div>
+            <div class="metric"><div class="metric-label">Concentration</div><div class="metric-value"><span id="r-conc">—</span><span class="metric-unit">%</span></div></div>
+            <div class="metric"><div class="metric-label">Total powder</div><div class="metric-value"><span id="r-total">—</span><span class="metric-unit">g</span></div></div>
+            <div class="metric"><div class="metric-label">Total carbs</div><div class="metric-value"><span id="r-totalCarbs">—</span><span class="metric-unit">g</span></div></div>
           </div>
 
           <div class="add-list" id="add-list"></div>
@@ -581,12 +561,16 @@ footer a { color: var(--muted); text-decoration: underline; }
     </div><!-- /body-results -->
   </div><!-- /wrap-results -->
 
+  <div class="ad-slot ad-btm">
+    <!-- ADSENSE: replace with your <ins> tag -->
+    <div>AD SPACE — 728×90</div><div style="font-size:10px;margin-top:2px">Google AdSense leaderboard</div>
+  </div>
 
 </main>
 
 <footer>
-  <p>MixRight — Endurance Drink Mix Calculator &nbsp;·&nbsp; <a href="https://www.mysportscience.com/post/the-sports-drink-that-changed-cycling" target="_blank" data-i18n="footerScience">Science behind the ratio</a></p>
-  <p data-i18n="footerDisclaimer" style="margin-top:6px;font-size:11px;">Not medical or nutritional advice. Consult a sports dietitian for personalised guidance.</p>
+  <p>MixRight — Endurance Drink Mix Calculator &nbsp;·&nbsp; <a href="https://www.mysportscience.com/post/the-sports-drink-that-changed-cycling" target="_blank">Science behind the ratio</a></p>
+  <p style="margin-top:6px;font-size:11px;">Not medical or nutritional advice. Consult a sports dietitian for personalised guidance.</p>
 </footer>
 
 <script>
@@ -606,339 +590,74 @@ function setVal(id, val) {
 function getEl(id) {
   return document.getElementById(id);
 }
-function carbLabel(value) {
-  const t = (typeof CARB_TYPES !== 'undefined' ? CARB_TYPES : []).find(c => c.value === value);
-  if (!t) return value;
-  return currentLang === 'fr' ? (t.label_fr || t.label) : t.label;
-}
-
-/* ═══════════════ LANGUAGE ═══════════════ */
-let currentLang = 'en';
-
-const TRANSLATIONS = {
-  en: {
-    badge:'ENDURANCE DRINK CALCULATOR',
-    heroH1:'Build the <em>perfect</em><br>endurance drink.',
-    heroP:'This tool helps you maximise total carbohydrate energy (g/hr) in your drink mix by optimising the glucose-to-fructose ratio and carb concentration.',
-    heroLi1:'Already have a mix you like? Enter its ingredients and the tool will calculate exactly what to add to hit your energy target.',
-    heroLi2:'Building from scratch? Skip the ingredient step and choose what you have available to add.',
-    heroLi3:'Built-in limits for absorption ceilings and concentration keep recommendations within safe ranges — but build up your gut tolerance gradually.',
-    heroLi4:'<strong style="color:var(--text);">Drink mix only</strong> — this tool does not account for gels, bars, or other carb sources. If you take gels during your session, factor that carb intake into your total energy budget when setting your target here.',
-    s1Title:'Choose your sport',
-    s1Tooltip:'Different sports have very different fuelling needs. Running creates GI stress from impact, so lower carb intake and diluted mixes are recommended. Cycling allows higher carb rates due to the seated position. Swimming suppresses thirst in cool water. Select your sport to get tailored targets, concentration warnings, and mixing tips.',
-    s1Btn:'Confirm sport →',
-    s2Title:'Enter your drink mix ingredients',
-    s2Tooltip:'List every ingredient from your drink mix label — including salt, electrolytes, and BCAAs. Carbs determine the glucose:fructose ratio, but non-carb ingredients still add to total powder weight, which affects concentration. Getting concentration right is key to avoiding GI issues during exercise.',
-    s2NoMix:'No starting drink mix',
-    s2NoMixSub:"I'm building a custom mix from scratch — skip this step",
-    s2Divider:'or enter your existing mix below',
-    s2ThCarbType:'Carb type',
-    s2ThCarbTypeTooltip:'Select the type of carbohydrate. This determines the glucose:fructose split. Maltodextrin and glucose are pure glucose. Sucrose and isomaltulose are 50/50. Fructose is pure fructose. Select "Non-carb" for salt, BCAAs, and electrolytes — these don\'t affect the ratio, but their weight is included in total powder to accurately calculate concentration.',
-    s2ThGrams:'Grams (g)',
-    s2ThContributes:'Contributes',
-    s2AddRow:'Add ingredient',
-    s2TotalLabel:'Total carb powder',
-    s2TotalTooltip:'The total weight of all ingredients — carbs and non-carbs combined. This is used to calculate how concentrated your drink is when dissolved in water. A higher total powder weight in the same bottle size means a more concentrated drink, which can slow gastric emptying and increase GI risk.',
-    s2MixBreakdown:'Your mix breakdown',
-    s2TotalCarbs:'Total carbs',
-    s2CurrentRatio:'Current ratio',
-    s2GlucoseEquiv:'Glucose equiv.',
-    s2FructoseEquiv:'Fructose equiv.',
-    carbGlucose:'Glucose',
-    carbFructose:'Fructose',
-    s2Btn:'Next: what can you add? →',
-    s3Title:'What you have available to add',
-    s3Tooltip:"Select every carbohydrate ingredient you have at home that you could add to your mix. We'll calculate the best combination to hit your target ratio using only what's available to you. For example, if you only have sucrose (table sugar), we can still optimise — it just limits how precisely we can hit the ideal 1:0.8 ratio.",
-    s3Desc:"Select everything you have in your cupboard that you could add to your drink mix. We'll work out the best combination to get as close as possible to your target ratio.",
-    s3Btn:'Calculate my mix →',
-    s4Title:'Set your targets',
-    s4Tooltip:'Choose your glucose:fructose ratio target. The ratio determines how your carb intake is split between the two transporters in your gut (SGLT-1 for glucose, GLUT-5 for fructose). A higher fructose proportion allows more total carbs to be absorbed per hour, but requires gut training to avoid GI distress.',
-    s4RatioLabel:'Glucose:fructose ratio',
-    s4RatioDesc:"Your gut uses two separate intestinal transporters simultaneously — SGLT-1 for glucose and GLUT-5 for fructose. Combining both lets you absorb significantly more carbs per hour than glucose alone. Select the ratio that matches your experience level and how well you've trained your gut.",
-    s4BottleLabel:'Bottle size',
-    s4BottleDesc:'Your bottle size determines the maximum carb concentration. High-osmolality sources (maltodextrin, dextrose, trehalose) should stay below 10% concentration to avoid GI distress — so a larger bottle allows a higher total energy intake.',
-    s4MlUnit:'ml',
-    s4EnergyLabel:'Target energy intake',
-    s4EnergyDesc:"How many grams of carbohydrate per hour you're aiming for. Your sport's typical range is shown above — start conservatively and increase over time as your gut adapts.",
-    s4GhrUnit:'g / hr',
-    s4Btn:'Calculate my mix →',
-    s5Title:'Your results',
-    s5WhatToAdd:'What to add to your mix',
-    s5TotalToAdd:'Total to add',
-    s5Concentration:'Concentration',
-    s5TotalPowder:'Total powder',
-    s5TotalCarbs:'Total carbs',
-    footerScience:'Science behind the ratio',
-    footerDisclaimer:'Not medical or nutritional advice. Consult a sports dietitian for personalised guidance.',
-    // Dynamic
-    skipIngDone:'No starting mix — building from scratch',
-    confirmIngAlert:'Please add at least one carbohydrate ingredient with a gram amount.',
-    confirmAddablesAlert:'Please select at least one ingredient you have available to add.',
-    typicalRange:(min,max)=>`Typical range: ${min}–${max} g/hr`,
-    concWarn:(e,b,c,mb,me)=>`⚠ At ${e}g carbs in a ${b}ml bottle, concentration is ${c}% — above the 10% threshold where GI distress becomes likely for most athletes. Consider increasing your bottle size to at least ${mb}ml, or reducing your target to ${me}g/hr.`,
-    noteNone:'⚠ Select at least one ingredient you have available to add.',
-    noteGluFru:'✓ Great — with separate glucose and fructose sources you can hit any ratio precisely.',
-    noteGluMixed:'ℹ You can adjust the ratio but fructose content is partially tied to your mixed source. Results will be close to your target.',
-    noteFruMixed:'ℹ You can adjust the ratio but glucose content is partially tied to your mixed source. Results will be close to your target.',
-    noteMixedOnly:'⚠ With only mixed sources (sucrose/isomaltulose) you can add carbs but cannot independently adjust the glucose:fructose ratio beyond 1:1.',
-    noteGluOnly:"⚠ With only glucose sources you can add more carbs but cannot increase fructose — your ratio may not reach 1:0.8.",
-    noteFruOnly:'⚠ With only fructose you can boost fructose but cannot add glucose — useful if your current mix is too glucose-heavy.',
-    noteCombined:"ℹ We'll calculate the best combination from what you have selected.",
-    sportTargetsLabel:(name)=>`${name} — typical targets`,
-    confirmTargetsDone:(label,name,energy)=>`Ratio ${label} · ${name} · ${energy}g/hr`,
-    addIngredientsDone:(n,carbs,powder)=>`${n} ingredient${n>1?'s':''} · ${carbs}g carbs · ${powder}g total powder`,
-    scenarioMaxEnergy:'Maximum safe energy',
-    carbLabelGlucose:'Glucose', carbLabelFructose:'Fructose', carbLabelMixed:'1:1 Glu/Fru', carbLabelNonCarb:'Non-carb',
-    // recalc() UI labels
-    howToMix:'How to mix:',
-    concCapLabel:'⚠ 10% concentration cap:',
-    giRiskLabel:'🚨 GI risk:',
-    baseMixLabel:'Your base mix (as entered)',
-    totalPowderIntoBottle:'Total powder into bottle',
-    nothingToAdd:'Nothing to add',
-    alreadyMeetsTarget:'✓ Your mix already meets the target — nothing to add',
-    achievedLabel:(total,ratio,conc)=>`Achieved: ${total}g/hr · ratio 1:${ratio} · ${conc}% concentration`,
-    labelToAdd:(label)=>`${label} to add`,
-    // Concentration cap notes
-    concCapUniversal:'Addition capped at 10% concentration — adding more would increase GI risk. To reach your full energy target, increase your bottle size.',
-    concCapMixed:(label)=>`Addition capped at 10% concentration — adding more ${label} would increase GI risk. To reach your full energy target, increase your bottle size.`,
-    concCapGluOnly:'Addition capped at 10% concentration — adding more would push concentration above 10% and increase GI risk. To reach your full energy target, increase your bottle size or swap some glucose for fructose.',
-    // Mixed-only scenario bullets
-    bulletMixedAdds:(g,label,gGlu,gFru,target)=>`Adds ${g}g ${label} (${gGlu}g glucose + ${gFru}g fructose) for maximum energy toward your ${target}g/hr goal.`,
-    bulletMixedFixed:(label)=>`${label} adds glucose and fructose in a fixed 1:1 ratio — the glucose:fructose ratio cannot be adjusted independently.`,
-    // Glucose-only scenario bullets
-    raisedByFru:' (raised because fructose is present in your base mix)',
-    bulletGluCeiling:(g,label,ceil,raisedNote,totalEnergy)=>`Adds ${g}g ${label} to reach the SGLT-1 absorption ceiling of ~${ceil}g/hr glucose${raisedNote}. Total energy: ~${totalEnergy}g/hr. Adding more beyond this will not increase absorbed energy — it will remain in the gut and cause bloating or cramping.`,
-    bulletGluTarget:(g,label,target,totalEnergy)=>`Adds ${g}g ${label} to reach your target of ${target}g/hr. Total energy: ~${totalEnergy}g/hr.`,
-    bulletGluFixed:(label,baseFru)=>`${label} only adds glucose — fructose stays at your base level of ${baseFru}g so the ratio cannot be independently adjusted.`,
-    // Fructose-only scenario bullets
-    bindingLimit1to1:(maxFru,baseGlu)=>`a 1:1 ratio ceiling (${maxFru}g fructose to match your ${baseGlu}g glucose)`,
-    bindingLimitGlut5:(ceil)=>`the GLUT-5 absorption ceiling of ~${ceil}g/hr`,
-    raisedByGlu:' (GLUT-5 ceiling raised because glucose is present in your base mix)',
-    bulletFruCeiling:(g,bindingLimit,raisedNote,totalEnergy,ratio)=>`Adds ${g}g fructose, limited by ${bindingLimit}${raisedNote}. Total energy: ~${totalEnergy}g/hr at a 1:${ratio} ratio. Adding more fructose beyond this point risks GI distress without increasing absorbed energy.`,
-    bulletFruTarget:(g,target,totalEnergy,ratio)=>`Adds ${g}g fructose to reach your target of ${target}g/hr. Total energy: ~${totalEnergy}g/hr at a 1:${ratio} ratio.`,
-    bulletFruFixed:(baseGlu)=>`Fructose only adds fructose — glucose stays at your base level of ${baseGlu}g so the ratio cannot be independently adjusted.`,
-    // Limitation notes (mixed + pure combos)
-    limitationMixedFru:(label,ratio)=>`${label} is your fructose source but also adds glucose, so the ratio will be close to 1:${ratio} but not exact. Adding pure fructose would give precise control.`,
-    limitationMixedGlu:(label,ratio)=>`${label} is your glucose source but also adds fructose, so the ratio will be close to 1:${ratio} but not exact. Adding pure maltodextrin would give precise control.`,
-    // Absorption warnings
-    absWarnBoth:(glu,gluCeil,fru,fruCeil,exGlu,exFru)=>`Both glucose (${glu}g/hr, ceiling ~${gluCeil}g) and fructose (${fru}g/hr, ceiling ~${fruCeil}g) exceed their transporter limits. ~${exGlu}g excess glucose and ~${exFru}g excess fructose will sit unabsorbed and are likely to cause GI distress. Reduce your energy target or increase bottle size.`,
-    absWarnGlu:(glu,ceil,exGlu,hint)=>`Glucose (${glu}g/hr) exceeds the SGLT-1 ceiling of ~${ceil}g/hr. ~${exGlu}g will be unabsorbed. ${hint}`,
-    absWarnFru:(fru,ceil,exFru,hint)=>`Fructose (${fru}g/hr) exceeds the GLUT-5 ceiling of ~${ceil}g/hr. ~${exFru}g will be unabsorbed and is likely to cause GI distress. ${hint}`,
-    absHintAddFru:'Adding a fructose source would raise this ceiling to ~72g/hr.',
-    absHintReduceGlu:'Reduce your energy target or lower the glucose proportion.',
-    absHintAddGlu:'Adding a glucose source would raise this ceiling to ~54g/hr.',
-    absHintReduceFru:'Reduce your energy target or lower the fructose ratio.',
-  },
-  fr: {
-    badge:"CALCULATEUR DE BOISSON D'ENDURANCE",
-    heroH1:"Créez la boisson<br><em>idéale</em> d'endurance.",
-    heroP:"Cet outil vous aide à maximiser l'apport énergétique glucidique total (g/h) de votre boisson en optimisant le ratio glucose-fructose et la concentration en glucides.",
-    heroLi1:"Vous avez déjà un mélange ? Entrez ses ingrédients et l'outil calculera exactement ce qu'il faut ajouter pour atteindre votre objectif énergétique.",
-    heroLi2:"Vous partez de zéro ? Passez l'étape des ingrédients et choisissez ce que vous avez sous la main.",
-    heroLi3:"Des limites intégrées pour les plafonds d'absorption et la concentration maintiennent les recommandations dans des plages sûres — augmentez progressivement la tolérance digestive.",
-    heroLi4:'<strong style="color:var(--text);">Boisson uniquement</strong> — cet outil ne tient pas compte des gels, barres ou autres sources glucidiques. Si vous prenez des gels pendant votre sortie, tenez-en compte dans votre budget énergétique total.',
-    s1Title:'Choisissez votre sport',
-    s1Tooltip:"Les différents sports ont des besoins nutritionnels très différents. La course à pied crée un stress digestif dû à l'impact, donc un apport en glucides plus faible est recommandé. Le cyclisme permet des apports plus élevés grâce à la position assise. La natation supprime la soif dans l'eau froide. Sélectionnez votre sport pour obtenir des objectifs personnalisés.",
-    s1Btn:'Confirmer le sport →',
-    s2Title:'Ingrédients de votre boisson',
-    s2Tooltip:"Listez chaque ingrédient de votre boisson — y compris le sel, les électrolytes et les BCAAs. Les glucides déterminent le ratio glucose:fructose, mais les ingrédients non glucidiques s'ajoutent au poids total de la poudre, ce qui affecte la concentration.",
-    s2NoMix:'Aucun mélange de départ',
-    s2NoMixSub:'Je crée un mélange personnalisé de zéro — passer cette étape',
-    s2Divider:'ou entrez votre mélange existant ci-dessous',
-    s2ThCarbType:'Type de glucide',
-    s2ThCarbTypeTooltip:"Sélectionnez le type de glucide. Cela détermine la répartition glucose:fructose. La maltodextrine et le glucose sont du glucose pur. Le saccharose et l'isomaltulose sont à 50/50. Le fructose est du fructose pur. Sélectionnez « Non-glucidique » pour le sel, les BCAAs et les électrolytes.",
-    s2ThGrams:'Grammes (g)',
-    s2ThContributes:'Apporte',
-    s2AddRow:'Ajouter un ingrédient',
-    s2TotalLabel:'Total glucides / poudre',
-    s2TotalTooltip:"Le poids total de tous les ingrédients — glucides et non-glucides combinés. Cela est utilisé pour calculer la concentration de votre boisson. Un poids de poudre plus élevé dans la même bouteille signifie une boisson plus concentrée, ce qui peut ralentir la vidange gastrique.",
-    s2MixBreakdown:'Analyse de votre mélange',
-    s2TotalCarbs:'Total glucides',
-    s2CurrentRatio:'Ratio actuel',
-    s2GlucoseEquiv:'Équiv. glucose',
-    s2FructoseEquiv:'Équiv. fructose',
-    carbGlucose:'Glucose',
-    carbFructose:'Fructose',
-    s2Btn:'Suivant : ce que vous pouvez ajouter →',
-    s3Title:'Ce que vous avez à disposition',
-    s3Tooltip:"Sélectionnez chaque ingrédient glucidique que vous avez chez vous et que vous pourriez ajouter à votre mélange. Nous calculerons la meilleure combinaison pour atteindre votre ratio cible en utilisant uniquement ce qui est disponible.",
-    s3Desc:"Sélectionnez tout ce que vous avez dans vos placards. Nous déterminerons la meilleure combinaison pour vous rapprocher le plus possible de votre ratio cible.",
-    s3Btn:'Calculer mon mélange →',
-    s4Title:'Définissez vos objectifs',
-    s4Tooltip:"Choisissez votre objectif de ratio glucose:fructose. Le ratio détermine la répartition de votre apport glucidique entre les deux transporteurs intestinaux (SGLT-1 pour le glucose, GLUT-5 pour le fructose). Une proportion de fructose plus élevée permet d'absorber plus de glucides par heure, mais nécessite un entraînement intestinal.",
-    s4RatioLabel:'Ratio glucose:fructose',
-    s4RatioDesc:"Votre intestin utilise deux transporteurs intestinaux séparés simultanément — SGLT-1 pour le glucose et GLUT-5 pour le fructose. Les combiner vous permet d'absorber bien plus de glucides par heure. Sélectionnez le ratio qui correspond à votre niveau d'expérience et à la tolérance de votre intestin.",
-    s4BottleLabel:'Taille de la bouteille',
-    s4BottleDesc:"La taille de votre bouteille détermine la concentration maximale en glucides. Les sources à haute osmolarité (maltodextrine, dextrose, tréhalose) doivent rester sous 10% de concentration pour éviter les troubles digestifs — une bouteille plus grande permet donc un apport énergétique plus élevé.",
-    s4MlUnit:'ml',
-    s4EnergyLabel:'Apport énergétique cible',
-    s4EnergyDesc:"Le nombre de grammes de glucides par heure que vous visez. La plage typique de votre sport est indiquée ci-dessus — commencez prudemment et augmentez progressivement.",
-    s4GhrUnit:'g / h',
-    s4Btn:'Calculer mon mélange →',
-    s5Title:'Vos résultats',
-    s5WhatToAdd:'Ce qu\'il faut ajouter à votre mélange',
-    s5TotalToAdd:'Total à ajouter',
-    s5Concentration:'Concentration',
-    s5TotalPowder:'Poudre totale',
-    s5TotalCarbs:'Total glucides',
-    footerScience:'La science derrière le ratio',
-    footerDisclaimer:'Pas de conseil médical ou nutritionnel. Consultez un diététicien sportif pour des conseils personnalisés.',
-    // Dynamic
-    skipIngDone:'Aucun mélange — construction de zéro',
-    confirmIngAlert:'Veuillez ajouter au moins un ingrédient glucidique avec une quantité en grammes.',
-    confirmAddablesAlert:"Veuillez sélectionner au moins un ingrédient que vous avez à disposition.",
-    typicalRange:(min,max)=>`Plage typique : ${min}–${max} g/h`,
-    concWarn:(e,b,c,mb,me)=>`⚠ À ${e}g de glucides dans une bouteille de ${b}ml, la concentration est de ${c}% — au-dessus du seuil de 10% où les troubles digestifs deviennent probables. Envisagez une bouteille d'au moins ${mb}ml, ou réduisez votre objectif à ${me}g/h.`,
-    noteNone:'⚠ Sélectionnez au moins un ingrédient disponible.',
-    noteGluFru:'✓ Excellent — avec des sources séparées de glucose et de fructose, vous pouvez atteindre n\'importe quel ratio avec précision.',
-    noteGluMixed:'ℹ Vous pouvez ajuster le ratio mais la teneur en fructose est partiellement liée à votre source mixte. Les résultats seront proches de votre objectif.',
-    noteFruMixed:'ℹ Vous pouvez ajuster le ratio mais la teneur en glucose est partiellement liée à votre source mixte. Les résultats seront proches de votre objectif.',
-    noteMixedOnly:'⚠ Avec uniquement des sources mixtes (saccharose/isomaltulose), vous pouvez ajouter des glucides mais ne pouvez pas ajuster indépendamment le ratio glucose:fructose au-delà de 1:1.',
-    noteGluOnly:'⚠ Avec uniquement des sources de glucose, vous pouvez ajouter plus de glucides mais ne pouvez pas augmenter le fructose — votre ratio peut ne pas atteindre 1:0.8.',
-    noteFruOnly:'⚠ Avec uniquement du fructose, vous pouvez augmenter le fructose mais ne pouvez pas ajouter du glucose — utile si votre mélange actuel est trop riche en glucose.',
-    noteCombined:"ℹ Nous calculerons la meilleure combinaison à partir de vos sélections.",
-    sportTargetsLabel:(name)=>`${name} — objectifs typiques`,
-    confirmTargetsDone:(label,name,energy)=>`Ratio ${label} · ${name} · ${energy}g/h`,
-    addIngredientsDone:(n,carbs,powder)=>`${n} ingrédient${n>1?'s':''} · ${carbs}g glucides · ${powder}g poudre totale`,
-    scenarioMaxEnergy:'Énergie maximale sûre',
-    carbLabelGlucose:'Glucose', carbLabelFructose:'Fructose', carbLabelMixed:'1:1 Glu/Fru', carbLabelNonCarb:'Non-glucidique',
-    // recalc() UI labels
-    howToMix:'Comment préparer :',
-    concCapLabel:'⚠ Limite de concentration à 10% :',
-    giRiskLabel:'🚨 Risque digestif :',
-    baseMixLabel:'Votre mélange de base (tel que saisi)',
-    totalPowderIntoBottle:'Poudre totale dans la bouteille',
-    nothingToAdd:'Rien à ajouter',
-    alreadyMeetsTarget:"✓ Votre mélange atteint déjà l'objectif — rien à ajouter",
-    achievedLabel:(total,ratio,conc)=>`Atteint : ${total}g/h · ratio 1:${ratio} · ${conc}% concentration`,
-    labelToAdd:(label)=>`${label} à ajouter`,
-    // Concentration cap notes
-    concCapUniversal:"Addition limitée à 10% de concentration — ajouter davantage augmenterait le risque digestif. Pour atteindre votre objectif énergétique complet, augmentez la taille de votre bouteille.",
-    concCapMixed:(label)=>`Addition limitée à 10% de concentration — ajouter plus de ${label} augmenterait le risque digestif. Augmentez la taille de votre bouteille.`,
-    concCapGluOnly:"Addition limitée — ajouter plus pousserait la concentration au-dessus de 10% et augmenterait le risque digestif. Augmentez la taille de votre bouteille ou remplacez une partie du glucose par du fructose.",
-    // Mixed-only scenario bullets
-    bulletMixedAdds:(g,label,gGlu,gFru,target)=>`Ajoute ${g}g de ${label} (${gGlu}g glucose + ${gFru}g fructose) pour maximiser l'énergie vers votre objectif de ${target}g/h.`,
-    bulletMixedFixed:(label)=>`${label} ajoute glucose et fructose dans un ratio fixe 1:1 — le ratio glucose:fructose ne peut pas être ajusté indépendamment.`,
-    // Glucose-only scenario bullets
-    raisedByFru:' (relevé car du fructose est présent dans votre mélange de base)',
-    bulletGluCeiling:(g,label,ceil,raisedNote,totalEnergy)=>`Ajoute ${g}g de ${label} pour atteindre le plafond d'absorption SGLT-1 de ~${ceil}g/h de glucose${raisedNote}. Énergie totale : ~${totalEnergy}g/h. Ajouter plus n'augmentera pas l'énergie absorbée — cela restera dans l'intestin et provoquera ballonnements ou crampes.`,
-    bulletGluTarget:(g,label,target,totalEnergy)=>`Ajoute ${g}g de ${label} pour atteindre votre objectif de ${target}g/h. Énergie totale : ~${totalEnergy}g/h.`,
-    bulletGluFixed:(label,baseFru)=>`${label} n'ajoute que du glucose — le fructose reste à votre niveau de base de ${baseFru}g, le ratio ne peut donc pas être ajusté indépendamment.`,
-    // Fructose-only scenario bullets
-    bindingLimit1to1:(maxFru,baseGlu)=>`un plafond de ratio 1:1 (${maxFru}g de fructose pour correspondre à vos ${baseGlu}g de glucose)`,
-    bindingLimitGlut5:(ceil)=>`le plafond d'absorption GLUT-5 de ~${ceil}g/h`,
-    raisedByGlu:' (plafond GLUT-5 relevé car du glucose est présent dans votre mélange de base)',
-    bulletFruCeiling:(g,bindingLimit,raisedNote,totalEnergy,ratio)=>`Ajoute ${g}g de fructose, limité par ${bindingLimit}${raisedNote}. Énergie totale : ~${totalEnergy}g/h à un ratio de 1:${ratio}. Ajouter plus de fructose risque des troubles digestifs sans augmenter l'énergie absorbée.`,
-    bulletFruTarget:(g,target,totalEnergy,ratio)=>`Ajoute ${g}g de fructose pour atteindre votre objectif de ${target}g/h. Énergie totale : ~${totalEnergy}g/h à un ratio de 1:${ratio}.`,
-    bulletFruFixed:(baseGlu)=>`Le fructose n'ajoute que du fructose — le glucose reste à votre niveau de base de ${baseGlu}g, le ratio ne peut donc pas être ajusté indépendamment.`,
-    // Limitation notes (mixed + pure combos)
-    limitationMixedFru:(label,ratio)=>`${label} est votre source de fructose mais ajoute également du glucose, donc le ratio sera proche de 1:${ratio} mais pas exact. Ajouter du fructose pur donnerait un contrôle précis.`,
-    limitationMixedGlu:(label,ratio)=>`${label} est votre source de glucose mais ajoute également du fructose, donc le ratio sera proche de 1:${ratio} mais pas exact. Ajouter de la maltodextrine pure donnerait un contrôle précis.`,
-    // Absorption warnings
-    absWarnBoth:(glu,gluCeil,fru,fruCeil,exGlu,exFru)=>`Le glucose (${glu}g/h, plafond ~${gluCeil}g) et le fructose (${fru}g/h, plafond ~${fruCeil}g) dépassent tous deux leurs limites. ~${exGlu}g de glucose et ~${exFru}g de fructose excédentaires resteront non absorbés et risquent de provoquer des troubles digestifs. Réduisez votre objectif ou augmentez la taille de la bouteille.`,
-    absWarnGlu:(glu,ceil,exGlu,hint)=>`Le glucose (${glu}g/h) dépasse le plafond SGLT-1 de ~${ceil}g/h. ~${exGlu}g ne sera pas absorbé. ${hint}`,
-    absWarnFru:(fru,ceil,exFru,hint)=>`Le fructose (${fru}g/h) dépasse le plafond GLUT-5 de ~${ceil}g/h. ~${exFru}g ne sera pas absorbé et risque de provoquer des troubles digestifs. ${hint}`,
-    absHintAddFru:'Ajouter une source de fructose relèverait ce plafond à ~72g/h.',
-    absHintReduceGlu:'Réduisez votre objectif énergétique ou diminuez la proportion de glucose.',
-    absHintAddGlu:'Ajouter une source de glucose relèverait ce plafond à ~54g/h.',
-    absHintReduceFru:'Réduisez votre objectif énergétique ou diminuez le ratio de fructose.',
-  }
-};
-
-function T(key, ...args) {
-  const val = TRANSLATIONS[currentLang]?.[key] ?? TRANSLATIONS.en[key];
-  return typeof val === 'function' ? val(...args) : (val ?? key);
-}
-
-function applyLang() {
-  document.documentElement.lang = currentLang;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === currentLang));
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const val = T(el.dataset.i18n);
-    if (val !== undefined) el.innerHTML = val;
-  });
-}
-
-function setLang(lang) {
-  currentLang = lang;
-  applyLang();
-  // Re-render dynamic sections
-  renderSportGrid();
-  const ratioGrid = document.getElementById('ratio-grid');
-  if (ratioGrid && ratioGrid.children.length) renderRatioGrid();
-  const addGrid = document.getElementById('addables-grid');
-  if (addGrid && addGrid.children.length) renderAddables();
-  updateAddablesNote();
-  const ingTbody = document.getElementById('ing-tbody');
-  if (ingTbody && ingTbody.children.length) {
-    document.querySelectorAll('.ing-row').forEach(row => {
-      const m = row.id.match(/\d+/);
-      if (!m) return;
-      const id = m[0];
-      const sel = document.getElementById('ing-type-' + id);
-      if (sel) onTypeChange(id);
-    });
-  }
-  if (document.getElementById('targets-tips-grid')?.children.length) renderTargets();
-  if (baseData.ready) renderResults();
-}
 
 /* ═══════════════ DATA ═══════════════ */
 const SPORTS = [
-  { id:'cycling',  name:'Cycling',       name_fr:'Cyclisme',        icon:'🚴', sub:'Road, MTB, gravel',       sub_fr:'Route, VTT, gravel',
+  { id:'cycling',  name:'Cycling',          icon:'🚴', sub:'Road, MTB, gravel',
     bannerText:'Cycling allows higher carb intakes — seated position and cooler core temp reduce GI stress. Dual-transporter mixes at 80–90 g/hr are well tolerated by trained riders.',
-    bannerText_fr:"Le cyclisme permet des apports en glucides plus élevés — la position assise et une température corporelle plus fraîche réduisent le stress digestif. Les mélanges à double transporteur à 80–90 g/h sont bien tolérés par les cyclistes entraînés.",
     containerLabel:'Bottle size (ml)', containerDefault:750,
     energyMin:40, energyMax:120, energyDefault:75, ratioDefault:0.8, concWarningPct:12,
     concWarningMsg:'⚠ Concentration above 12% may slow gastric emptying. Try a larger bottle or lower target energy.',
-    concWarningMsg_fr:'⚠ Une concentration supérieure à 12% peut ralentir la vidange gastrique. Essayez une bouteille plus grande ou réduisez l\'objectif énergétique.',
     mixingTip:'Add all powder to your bottle, fill to {BOTTLE}, shake well. Best within 4 hours. Ensure your base mix includes electrolytes for rides over 90 min.',
-    mixingTip_fr:'Ajoutez toute la poudre dans votre bouteille, remplissez jusqu\'à {BOTTLE}, agitez bien. À consommer dans les 4 heures. Assurez-vous que votre mélange de base inclut des électrolytes pour les sorties de plus de 90 min.',
     hints:['Light (<60 g)','Optimal (60–90 g)','Pro (>90 g)'],
-    hints_fr:['Léger (<60 g)','Optimal (60–90 g)','Pro (>90 g)'],
-    tips:[{label:'Typical range',val:'60–90 g/hr',note:'Seated = lower GI stress'},{label:'Max absorbed',val:'90–120 g/hr',note:'Gut training required'},{label:'Concentration',val:'8–10%',note:'Optimal gastric emptying'},{label:'Fluid intake',val:'500–800 ml/hr',note:'Adjust for temperature'}],
-    tips_fr:[{label:'Plage typique',val:'60–90 g/h',note:'Position assise = moins de stress digestif'},{label:'Max absorbé',val:'90–120 g/h',note:'Entraînement intestinal requis'},{label:'Concentration',val:'8–10%',note:'Vidange gastrique optimale'},{label:'Apport hydrique',val:'500–800 ml/h',note:'Ajuster selon la température'}]
+    tips:[{label:'Typical range',val:'60–90 g/hr',note:'Seated = lower GI stress'},{label:'Max absorbed',val:'90–120 g/hr',note:'Gut training required'},{label:'Concentration',val:'8–10%',note:'Optimal gastric emptying'},{label:'Fluid intake',val:'500–800 ml/hr',note:'Adjust for temperature'}]
   },
-  { id:'running',  name:'Running',       name_fr:'Course à pied',   icon:'🏃', sub:'Road, trail, ultra',      sub_fr:'Route, trail, ultra',
+  { id:'running',  name:'Running',           icon:'🏃', sub:'Road, trail, ultra',
     bannerText:'Running creates significant GI stress from stride impact. Start at 30–50 g/hr and build gradually. Lower concentrations (5–8%) leave the stomach faster and are better tolerated.',
-    bannerText_fr:"La course à pied crée un stress digestif significatif dû à l'impact des foulées. Commencez à 30–50 g/h et augmentez progressivement. Des concentrations plus faibles (5–8%) quittent l'estomac plus rapidement.",
     containerLabel:'Soft flask / vest (ml)', containerDefault:500,
     energyMin:20, energyMax:100, energyDefault:50, ratioDefault:0.8, concWarningPct:9,
     concWarningMsg:'⚠ Concentration above 9% may slow gastric emptying while running. Try a larger flask or lower target energy.',
-    concWarningMsg_fr:"⚠ Une concentration supérieure à 9% peut ralentir la vidange gastrique en courant. Essayez une flasque plus grande ou réduisez l'objectif.",
     mixingTip:'Fill your soft flask to {BOTTLE}. Smaller, more frequent sips are better tolerated than large gulps while running.',
-    mixingTip_fr:"Remplissez votre flasque souple jusqu'à {BOTTLE}. De petites gorgées fréquentes sont mieux tolérées que de grandes gorgées en courant.",
     hints:['Easy (<40 g)','Optimal (40–60 g)','Ultra (>60 g)'],
-    hints_fr:['Facile (<40 g)','Optimal (40–60 g)','Ultra (>60 g)'],
-    tips:[{label:'Typical range',val:'40–60 g/hr',note:'GI impact limits intake'},{label:'Ultra running',val:'60–90 g/hr',note:'Substantial gut training needed'},{label:'Concentration',val:'5–8%',note:'Faster gastric emptying'},{label:'Fluid intake',val:'400–600 ml/hr',note:'More in heat/humidity'}],
-    tips_fr:[{label:'Plage typique',val:'40–60 g/h',note:"L'impact digestif limite l'apport"},{label:'Ultra running',val:'60–90 g/h',note:'Entraînement intestinal important nécessaire'},{label:'Concentration',val:'5–8%',note:'Vidange gastrique plus rapide'},{label:'Apport hydrique',val:'400–600 ml/h',note:'Plus en chaleur/humidité'}]
+    tips:[{label:'Typical range',val:'40–60 g/hr',note:'GI impact limits intake'},{label:'Ultra running',val:'60–90 g/hr',note:'Substantial gut training needed'},{label:'Concentration',val:'5–8%',note:'Faster gastric emptying'},{label:'Fluid intake',val:'400–600 ml/hr',note:'More in heat/humidity'}]
   },
-  { id:'swimming', name:'Swimming',      name_fr:'Natation',        icon:'🏊', sub:'Pool, open water',        sub_fr:'Piscine, eau libre',
+  { id:'swimming', name:'Swimming',          icon:'🏊', sub:'Pool, open water',
     bannerText:'Cool water suppresses thirst and reduces sweat losses, but carb needs are real for sessions over 60 min. The horizontal position reduces GI stress, allowing higher concentrations.',
-    bannerText_fr:"L'eau fraîche supprime la soif et réduit les pertes en sueur, mais les besoins en glucides sont réels pour les séances de plus de 60 min. La position horizontale réduit le stress digestif.",
     containerLabel:'Poolside bottle (ml)', containerDefault:750,
     energyMin:20, energyMax:90, energyDefault:50, ratioDefault:0.8, concWarningPct:14,
     concWarningMsg:'⚠ Concentration above 14% may still cause GI issues. Consider diluting further.',
-    concWarningMsg_fr:'⚠ Une concentration supérieure à 14% peut encore causer des problèmes digestifs. Envisagez de diluer davantage.',
     mixingTip:'Sip from your poolside bottle at wall turns or during rest intervals. Open-water athletes: use a tow float bottle for mid-swim fuelling. Fill to {BOTTLE}.',
-    mixingTip_fr:"Buvez à votre bouteille de bord de bassin aux virages ou pendant les intervalles de repos. Athlètes en eau libre : utilisez une bouteille flottante. Remplissez jusqu'à {BOTTLE}.",
     hints:['Short (<35 g)','Optimal (35–60 g)','Long (>60 g)'],
-    hints_fr:['Court (<35 g)','Optimal (35–60 g)','Long (>60 g)'],
-    tips:[{label:'Typical range',val:'40–60 g/hr',note:'For sessions >60 min'},{label:'Concentration',val:'8–12%',note:'Horizontal = better tolerance'},{label:'Sweat losses',val:'Lower',note:'Water masks thirst cues'},{label:'Fluid intake',val:'300–500 ml/hr',note:'Easy to underdrink'}],
-    tips_fr:[{label:'Plage typique',val:'40–60 g/h',note:'Pour les séances >60 min'},{label:'Concentration',val:'8–12%',note:'Position horizontale = meilleure tolérance'},{label:'Pertes en sueur',val:'Faibles',note:"L'eau masque les signaux de soif"},{label:'Apport hydrique',val:'300–500 ml/h',note:'Facile de peu boire'}]
+    tips:[{label:'Typical range',val:'40–60 g/hr',note:'For sessions >60 min'},{label:'Concentration',val:'8–12%',note:'Horizontal = better tolerance'},{label:'Sweat losses',val:'Lower',note:'Water masks thirst cues'},{label:'Fluid intake',val:'300–500 ml/hr',note:'Easy to underdrink'}]
+  },
+  { id:'triathlon',name:'Triathlon',         icon:'🏅', sub:'Sprint to Ironman',
+    bannerText:'The bike leg is your primary fuelling window. Reduce intake on the run to manage impact-related GI stress. Plan specific nutrition for T1 and T2 transitions.',
+    containerLabel:'Bike bottle (ml)', containerDefault:750,
+    energyMin:30, energyMax:110, energyDefault:70, ratioDefault:0.8, concWarningPct:11,
+    concWarningMsg:'⚠ Concentration above 11% may cause GI issues on the run leg. Use a more dilute mix approaching T2.',
+    mixingTip:'Prepare bike bottles with this mix. For the run, dilute to 50–60% concentration. Take a gel or chew during T2. Fill bike bottle to {BOTTLE}.',
+    hints:['Sprint (<50 g)','Olympic (50–80 g)','Long (>80 g)'],
+    tips:[{label:'Bike fuelling',val:'60–90 g/hr',note:'Primary carb window'},{label:'Run fuelling',val:'40–60 g/hr',note:'Reduce to manage GI'},{label:'Concentration',val:'8–10%',note:'Dilute for run leg'},{label:'Fluid intake',val:'500–800 ml/hr',note:'Varies hugely by distance'}]
+  },
+  { id:'rowing',   name:'Rowing',            icon:'🚣', sub:'Ergo, on water',
+    bannerText:'Rowing engages virtually every major muscle group, demanding very high energy outputs. Seated position allows reasonable GI tolerance. Pre-loading is critical for short, high-intensity pieces.',
+    containerLabel:'Bottle size (ml)', containerDefault:750,
+    energyMin:30, energyMax:100, energyDefault:60, ratioDefault:0.8, concWarningPct:12,
+    concWarningMsg:'⚠ Concentration above 12% may cause discomfort. Consider a larger bottle.',
+    mixingTip:'Fill your bottle to {BOTTLE}. For high-intensity pieces, prioritise pre-session carb loading. Sip between intervals for longer ergo sessions.',
+    hints:['Short (<45 g)','Optimal (45–75 g)','Long (>75 g)'],
+    tips:[{label:'Typical range',val:'45–75 g/hr',note:'Whole-body demand is high'},{label:'Concentration',val:'8–12%',note:'Seated = decent tolerance'},{label:'Fluid intake',val:'600–800 ml/hr',note:'High sweat rates'},{label:'Key strategy',val:'Pre-load',note:'Critical for sub-30 min efforts'}]
+  },
+  { id:'xcski',    name:'XC Skiing',         icon:'⛷️', sub:'Classic & skate',
+    bannerText:'Cross-country skiing demands some of the highest VO₂max outputs of any sport. Cold air suppresses thirst and can freeze liquids — use insulated flasks and drink on a schedule, not when thirsty.',
+    containerLabel:'Insulated flask (ml)', containerDefault:500,
+    energyMin:40, energyMax:110, energyDefault:80, ratioDefault:0.8, concWarningPct:14,
+    concWarningMsg:'⚠ Use an insulated flask in sub-zero conditions. High concentration lowers freezing point slightly but won\'t prevent freezing entirely.',
+    mixingTip:'Use an insulated flask, fill to {BOTTLE}. Cold suppresses thirst — set a timer to drink every 15–20 min regardless of how you feel.',
+    hints:['Easy (<60 g)','Optimal (60–90 g)','Race (>90 g)'],
+    tips:[{label:'Typical range',val:'60–90 g/hr',note:'Among highest of any sport'},{label:'Concentration',val:'8–12%',note:'Cold slows gastric emptying'},{label:'Fluid intake',val:'400–700 ml/hr',note:'Cold masks thirst cues'},{label:'Key risk',val:'Dehydration',note:'Insulated flask essential'}]
   },
 ];
 
 const CARB_TYPES = [
-  { value:'maltodextrin', label:'Maltodextrin',               label_fr:'Maltodextrine',               hint:'Pure glucose polymer',          hint_fr:'Polymère de glucose pur',           glucoseRatio:1.0, fructoseRatio:0.0 },
-  { value:'fructose',     label:'Fructose',                   label_fr:'Fructose',                    hint:'Pure fructose',                 hint_fr:'Fructose pur',                      glucoseRatio:0.0, fructoseRatio:1.0 },
-  { value:'glucose',      label:'Glucose / Dextrose',         label_fr:'Glucose / Dextrose',          hint:'Pure glucose',                  hint_fr:'Glucose pur',                       glucoseRatio:1.0, fructoseRatio:0.0 },
-  { value:'sucrose',      label:'Sucrose (table sugar)',       label_fr:'Saccharose (sucre de table)', hint:'50% glucose, 50% fructose',     hint_fr:'50% glucose, 50% fructose',         glucoseRatio:0.5, fructoseRatio:0.5 },
-  { value:'trehalose',    label:'Trehalose',                  label_fr:'Tréhalose',                   hint:'Pure glucose disaccharide',     hint_fr:'Disaccharide de glucose pur',       glucoseRatio:1.0, fructoseRatio:0.0 },
-  { value:'isomaltulose', label:'Isomaltulose (Palatinose)',  label_fr:'Isomaltulose (Palatinose)',   hint:'50% glucose, 50% fructose',     hint_fr:'50% glucose, 50% fructose',         glucoseRatio:0.5, fructoseRatio:0.5 },
-  { value:'cluster',      label:'Cluster dextrin (HBCD)',     label_fr:'Dextrine en grappe (HBCD)',   hint:'Fast-absorbing glucose',        hint_fr:'Glucose à absorption rapide',       glucoseRatio:1.0, fructoseRatio:0.0 },
-  { value:'none',         label:'Non-carb (salt, BCAAs…)',    label_fr:'Non-glucidique (sel, BCAAs…)',hint:'Counts toward powder weight',   hint_fr:'Compte dans le poids de poudre',    glucoseRatio:0.0, fructoseRatio:0.0 },
+  { value:'maltodextrin', label:'Maltodextrin',               hint:'Pure glucose polymer',        glucoseRatio:1.0, fructoseRatio:0.0 },
+  { value:'fructose',     label:'Fructose',                   hint:'Pure fructose',               glucoseRatio:0.0, fructoseRatio:1.0 },
+  { value:'glucose',      label:'Glucose / Dextrose',         hint:'Pure glucose',                glucoseRatio:1.0, fructoseRatio:0.0 },
+  { value:'sucrose',      label:'Sucrose (table sugar)',       hint:'50% glucose, 50% fructose',   glucoseRatio:0.5, fructoseRatio:0.5 },
+  { value:'trehalose',    label:'Trehalose',                  hint:'Pure glucose disaccharide',   glucoseRatio:1.0, fructoseRatio:0.0 },
+  { value:'isomaltulose', label:'Isomaltulose (Palatinose)',  hint:'50% glucose, 50% fructose',   glucoseRatio:0.5, fructoseRatio:0.5 },
+  { value:'cluster',      label:'Cluster dextrin (HBCD)',     hint:'Fast-absorbing glucose',      glucoseRatio:1.0, fructoseRatio:0.0 },
+  { value:'none',         label:'Non-carb (salt, BCAAs…)',    hint:'Counts toward powder weight',  glucoseRatio:0.0, fructoseRatio:0.0 },
 ];
 
 /* ═══════════════ STATE ═══════════════ */
@@ -1002,44 +721,33 @@ function renderSportGrid() {
   SPORTS.forEach(s => {
     const d = document.createElement('div');
     d.className = 'sport-card' + (s.id === selectedSport.id ? ' selected' : '');
-    const sName = currentLang === 'fr' ? (s.name_fr || s.name) : s.name;
-    const sSub  = currentLang === 'fr' ? (s.sub_fr  || s.sub)  : s.sub;
-    d.innerHTML = `<span class="sport-icon">${s.icon}</span><span class="sport-name">${sName}</span><span class="sport-sub">${sSub}</span>`;
+    d.innerHTML = `<span class="sport-icon">${s.icon}</span><span class="sport-name">${s.name}</span><span class="sport-sub">${s.sub}</span>`;
     d.onclick = () => { selectedSport = s; renderSportGrid(); };
     grid.appendChild(d);
   });
 }
 
 function confirmSport() {
-  const sName = currentLang === 'fr' ? (selectedSport.name_fr || selectedSport.name) : selectedSport.name;
-  const sSub  = currentLang === 'fr' ? (selectedSport.sub_fr  || selectedSport.sub)  : selectedSport.sub;
-  markDone('sport', selectedSport.icon + ' ' + sName + ' · ' + sSub);
+  markDone('sport', selectedSport.icon + ' ' + selectedSport.name + ' · ' + selectedSport.sub);
   openSection('ing');
-}
-
-function skipToAddables() {
-  const tbody = document.getElementById('ing-tbody');
-  if (tbody) tbody.innerHTML = '';
-  rowCount = 0;
-  document.getElementById('ing-preview').style.display = 'none';
-  baseData = { glucose: 0, fructose: 0, totalCarbs: 0, totalPowder: 0, baseMixWeight: 0 };
-  markDone('ing', T('skipIngDone'));
-  renderAddables();
-  openSection('addables');
+  if (rowCount === 0) {
+    addRow('Maltodextrin', 15, 'maltodextrin');
+    addRow('Sucrose',       9, 'sucrose');
+    addRow('Fructose',      4, 'fructose');
+  }
 }
 
 /* ═══════════════ TARGETS ═══════════════ */
 const RATIO_OPTIONS = [
-  { value: 0.6, label: '1:0.6', name: 'Conservative', name_fr: 'Conservateur', desc: 'Suits beginners or shorter efforts. Absorption limited to ~60g/hr — one transporter at a time.',        desc_fr: 'Idéal pour les débutants ou les efforts courts. Absorption limitée à ~60g/h — un seul transporteur à la fois.' },
-  { value: 0.8, label: '1:0.8', name: 'Optimal',      name_fr: 'Optimal',      desc: 'Research-backed sweet spot. Dual-transporter absorption unlocked — up to ~90g/hr.',                   desc_fr: 'Le point idéal appuyé par la recherche. Absorption à double transporteur — jusqu\'à ~90g/h.' },
-  { value: 1.0, label: '1:1',   name: 'Advanced',     name_fr: 'Avancé',       desc: 'For gut-trained athletes only. Maximum fructose — requires weeks of conditioning.',                    desc_fr: 'Pour les athlètes avec l\'intestin entraîné uniquement. Fructose maximum — nécessite plusieurs semaines de conditionnement.' },
+  { value: 0.6, label: '1:0.6', name: 'Conservative', desc: 'Suits beginners or shorter efforts. Absorption limited to ~60g/hr — one transporter at a time.' },
+  { value: 0.8, label: '1:0.8', name: 'Optimal',      desc: 'Research-backed sweet spot. Dual-transporter absorption unlocked — up to ~90g/hr.' },
+  { value: 1.0, label: '1:1',   name: 'Advanced',     desc: 'For gut-trained athletes only. Maximum fructose — requires weeks of conditioning.' },
 ];
 
 function renderTargets() {
-  const tips = (currentLang === 'fr' && selectedSport.tips_fr) ? selectedSport.tips_fr : selectedSport.tips;
   const tipsEl = document.getElementById('targets-tips-grid');
   if (tipsEl) {
-    tipsEl.innerHTML = tips.map(t =>
+    tipsEl.innerHTML = selectedSport.tips.map(t =>
       `<div class="sport-tip-card"><div class="sport-tip-label">${t.label}</div><div class="sport-tip-val">${t.val}</div><div class="sport-tip-note">${t.note}</div></div>`
     ).join('');
   }
@@ -1049,7 +757,7 @@ function renderTargets() {
   const inp = document.getElementById('targetEnergyInput');
   if (inp) { inp.min = selectedSport.energyMin; inp.max = selectedSport.energyMax; inp.value = selectedSport.energyDefault; }
   const hint = document.getElementById('target-energy-hint');
-  if (hint) hint.textContent = T('typicalRange', selectedSport.energyMin, selectedSport.energyMax);
+  if (hint) hint.textContent = `Typical range: ${selectedSport.energyMin}–${selectedSport.energyMax} g/hr`;
   checkTargetConcWarning();
 }
 
@@ -1059,8 +767,9 @@ function checkTargetConcWarning() {
   const warn   = document.getElementById('targets-conc-warning');
   if (!warn) return;
   if (bottle > 0 && energy > bottle * 0.10) {
+    const maxEnergy = Math.round(bottle * 0.10);
     warn.style.display = 'block';
-    warn.textContent = T('concWarn', energy, bottle, ((energy / bottle) * 100).toFixed(1), Math.ceil(energy / 0.10), Math.round(bottle * 0.10));
+    warn.textContent = `⚠ At ${energy}g carbs in a ${bottle}ml bottle, concentration is ${((energy / bottle) * 100).toFixed(1)}% — above the 10% threshold where GI distress becomes likely for most athletes. Consider increasing your bottle size to at least ${Math.ceil(energy / 0.10)}ml, or reducing your target to ${maxEnergy}g/hr.`;
   } else {
     warn.style.display = 'none';
   }
@@ -1069,18 +778,12 @@ function checkTargetConcWarning() {
 function renderRatioGrid() {
   const grid = document.getElementById('ratio-grid');
   if (!grid) return;
-  grid.innerHTML = RATIO_OPTIONS.map(o => {
-    const rName = currentLang === 'fr' ? (o.name_fr || o.name) : o.name;
-    const rDesc = currentLang === 'fr' ? (o.desc_fr || o.desc) : o.desc;
-    return `
+  grid.innerHTML = RATIO_OPTIONS.map(o => `
     <div class="ratio-card${selectedRatio === o.value ? ' selected' : ''}" onclick="selectRatio(${o.value})">
-      <div class="ratio-card-name">${rName}</div>
-      <div style="display:flex;align-items:flex-start;gap:10px;margin-top:4px;">
-        <div class="ratio-card-label">${o.label}</div>
-        <div class="ratio-card-desc" style="text-align:left;">${rDesc}</div>
-      </div>
-    </div>`;
-  }).join('');
+      <div class="ratio-card-label">${o.label}</div>
+      <div class="ratio-card-name">${o.name}</div>
+      <div class="ratio-card-desc">${o.desc}</div>
+    </div>`).join('');
 }
 
 function selectRatio(value) {
@@ -1093,44 +796,43 @@ function confirmTargets() {
   selectedTargetEnergy = Math.max(selectedSport.energyMin,
     Math.min(selectedSport.energyMax,
       parseInt(document.getElementById('targetEnergyInput')?.value) || selectedSport.energyDefault));
-  const optName = currentLang === 'fr' ? (opt?.name_fr || opt?.name) : opt?.name;
-  markDone('targets', T('confirmTargetsDone', opt?.label, optName, selectedTargetEnergy));
+  markDone('targets', `Ratio ${opt?.label} · ${opt?.name} · ${selectedTargetEnergy}g/hr`);
   const rows = collectRows();
   baseData = calcBase(rows);
   baseData.baseMixWeight = baseData.totalPowder;
   baseData.bottleSize    = parseInt(document.getElementById('targetBottleSizeInput')?.value) || selectedSport.containerDefault;
-  baseData.ready         = true;
   openSection('results');
   renderResults();
 }
 
 /* ═══════════════ INGREDIENTS ═══════════════ */
 function typeOptions(sel) {
-  return CARB_TYPES.map(t => {
-    const lbl = currentLang === 'fr' ? (t.label_fr || t.label) : t.label;
-    return `<option value="${t.value}" ${t.value===sel?'selected':''}>${lbl}</option>`;
-  }).join('');
+  return CARB_TYPES.map((t,i) =>
+    `<option value="${t.value}" ${t.value===sel?'selected':''}>${i+1}. ${t.label}</option>`
+  ).join('');
 }
 
-function carbTypeLabel(type) {
-  if (['maltodextrin','glucose','trehalose','cluster'].includes(type)) return { text: T('carbLabelGlucose'),  color: '#2563eb' };
-  if (type === 'fructose')                                             return { text: T('carbLabelFructose'), color: '#ea580c' };
-  if (['sucrose','isomaltulose'].includes(type))                       return { text: T('carbLabelMixed'),    color: '#7c3aed' };
-  return { text: T('carbLabelNonCarb'), color: 'var(--muted)' };
-}
-
-function addRow(grams=0, type='maltodextrin') {
+function addRow(name='', grams=0, type='maltodextrin') {
   rowCount++;
-  const id  = rowCount;
-  const lbl = carbTypeLabel(type);
-  const tr  = document.createElement('tr');
+  const id = rowCount;
+  const tr = document.createElement('tr');
   tr.className = 'ing-row';
   tr.id = 'row-' + id;
   tr.innerHTML = `
     <td class="ing-row-num">${id}</td>
-    <td><select class="ing-type-select" id="ing-type-${id}" onchange="onTypeChange(${id})">${typeOptions(type)}</select></td>
+    <td>
+      <div class="ing-name-wrap" id="ta-wrap-${id}">
+        <input class="ing-name-input" id="ing-name-${id}" type="text" placeholder="e.g. Maltodextrin" value="${name}" autocomplete="off"
+          oninput="onNameInput(${id})"
+          onkeydown="onNameKey(event,${id})"
+          onblur="closeTypeahead(${id})">
+        <div class="typeahead-list" id="ta-list-${id}"></div>
+      </div>
+    </td>
     <td><input class="ing-grams-input" id="ing-grams-${id}" type="number" min="0" max="999" step="0.5" value="${grams||''}" placeholder="0" oninput="updateTotals()"></td>
-    <td id="ing-label-${id}"><span class="ratio-pill" style="background:${lbl.color}1a;color:${lbl.color};font-size:12px;">${lbl.text}</span></td>
+    <td>
+      <select class="ing-type-select" id="ing-type-${id}" onchange="onTypeChange(${id})">${typeOptions(type)}</select>
+    </td>
     <td><button class="btn-remove" onclick="removeRow(${id})" title="Remove">×</button></td>
   `;
   document.getElementById('ing-tbody').appendChild(tr);
@@ -1144,10 +846,10 @@ function removeRow(id) {
 }
 
 function onTypeChange(id) {
-  const sel    = document.getElementById('ing-type-' + id);
-  const lbl    = carbTypeLabel(sel.value);
-  const labelEl = document.getElementById('ing-label-' + id);
-  if (labelEl) labelEl.innerHTML = `<span class="ratio-pill" style="background:${lbl.color}1a;color:${lbl.color};font-size:12px;">${lbl.text}</span>`;
+  const sel  = document.getElementById('ing-type-' + id);
+  const name = document.getElementById('ing-name-'  + id);
+  const def  = CARB_TYPES.find(t => t.value === sel.value);
+  if (def && !name.value) name.value = def.label;
   updateTotals();
 }
 
@@ -1240,7 +942,8 @@ function collectRows() {
     const id    = m[0];
     const grams = parseFloat(document.getElementById('ing-grams-' + id)?.value) || 0;
     const type  = document.getElementById('ing-type-'  + id)?.value || 'none';
-    result.push({ grams, type });
+    const name  = document.getElementById('ing-name-'  + id)?.value || '';
+    result.push({ name, grams, type });
   });
   return result;
 }
@@ -1306,9 +1009,9 @@ function updatePieChart(bd) {
 function confirmIngredients() {
   const rows = collectRows();
   const carbs = rows.filter(r => r.type !== 'none' && r.grams > 0);
-  if (carbs.length === 0) { alert(T('confirmIngAlert')); return; }
+  if (carbs.length === 0) { alert('Please add at least one carbohydrate ingredient with a gram amount.'); return; }
   const bd = calcBase(rows);
-  markDone('ing', T('addIngredientsDone', carbs.length, Math.round(bd.totalCarbs), Math.round(bd.totalPowder)));
+  markDone('ing', `${carbs.length} ingredient${carbs.length>1?'s':''} · ${Math.round(bd.totalCarbs)}g carbs · ${Math.round(bd.totalPowder)}g total powder`);
   renderAddables();
   openSection('addables');
 }
@@ -1316,13 +1019,13 @@ function confirmIngredients() {
 /* ═══════════════ ADDABLES ═══════════════ */
 // Only carb types that make sense to add (not non-carb)
 const ADDABLE_TYPES = [
-  { value:'maltodextrin', label:'Maltodextrin',              label_fr:'Maltodextrine',               sub:'Pure glucose polymer',          sub_fr:'Polymère de glucose pur' },
-  { value:'fructose',     label:'Fructose',                  label_fr:'Fructose',                    sub:'Pure fructose',                 sub_fr:'Fructose pur' },
-  { value:'glucose',      label:'Glucose / Dextrose',        label_fr:'Glucose / Dextrose',          sub:'Pure glucose',                  sub_fr:'Glucose pur' },
-  { value:'sucrose',      label:'Sucrose (table sugar)',      label_fr:'Saccharose (sucre de table)', sub:'50% glucose + 50% fructose',    sub_fr:'50% glucose + 50% fructose' },
-  { value:'trehalose',    label:'Trehalose',                 label_fr:'Tréhalose',                   sub:'Pure glucose disaccharide',     sub_fr:'Disaccharide de glucose pur' },
-  { value:'isomaltulose', label:'Isomaltulose (Palatinose)', label_fr:'Isomaltulose (Palatinose)',   sub:'50% glucose + 50% fructose',    sub_fr:'50% glucose + 50% fructose' },
-  { value:'cluster',      label:'Cluster dextrin (HBCD)',    label_fr:'Dextrine en grappe (HBCD)',   sub:'Fast-absorbing glucose',        sub_fr:'Glucose à absorption rapide' },
+  { value:'maltodextrin', label:'Maltodextrin',             sub:'Pure glucose polymer' },
+  { value:'fructose',     label:'Fructose',                 sub:'Pure fructose' },
+  { value:'glucose',      label:'Glucose / Dextrose',       sub:'Pure glucose' },
+  { value:'sucrose',      label:'Sucrose (table sugar)',     sub:'50% glucose + 50% fructose' },
+  { value:'trehalose',    label:'Trehalose',                sub:'Pure glucose disaccharide' },
+  { value:'isomaltulose', label:'Isomaltulose (Palatinose)',sub:'50% glucose + 50% fructose' },
+  { value:'cluster',      label:'Cluster dextrin (HBCD)',   sub:'Fast-absorbing glucose' },
 ];
 
 function renderAddables() {
@@ -1335,8 +1038,8 @@ function renderAddables() {
       <input type="checkbox" value="${t.value}" ${selectedAddables.has(t.value) ? 'checked' : ''}>
       <span class="addable-pill-check"></span>
       <span>
-        <span style="display:block; font-weight:500;">${currentLang==='fr'?(t.label_fr||t.label):t.label}</span>
-        <span class="addable-pill-sub">${currentLang==='fr'?(t.sub_fr||t.sub):t.sub}</span>
+        <span style="display:block; font-weight:500;">${t.label}</span>
+        <span class="addable-pill-sub">${t.sub}</span>
       </span>
     `;
     pill.querySelector('input').addEventListener('change', e => {
@@ -1358,37 +1061,37 @@ function updateAddablesNote() {
 
   if (selectedAddables.size === 0) {
     note.style.display = 'block';
-    note.textContent = T('noteNone');
+    note.textContent = '⚠ Select at least one ingredient you have available to add.';
     return;
   }
   note.style.display = 'block';
   if (hasPureGlucose && hasPureFructose) {
     note.style.background = '#f0fdf4'; note.style.borderColor = '#bbf7d0'; note.style.color = '#166534';
-    note.textContent = T('noteGluFru');
+    note.textContent = '✓ Great — with separate glucose and fructose sources you can hit any ratio precisely.';
   } else if (hasPureGlucose && hasMixed && !hasPureFructose) {
     note.style.background = '#eff6ff'; note.style.borderColor = '#bfdbfe'; note.style.color = '#1e40af';
-    note.textContent = T('noteGluMixed');
+    note.textContent = 'ℹ You can adjust the ratio but fructose content is partially tied to your mixed source. Results will be close to your target.';
   } else if (hasPureFructose && hasMixed && !hasPureGlucose) {
     note.style.background = '#eff6ff'; note.style.borderColor = '#bfdbfe'; note.style.color = '#1e40af';
-    note.textContent = T('noteFruMixed');
+    note.textContent = 'ℹ You can adjust the ratio but glucose content is partially tied to your mixed source. Results will be close to your target.';
   } else if (!hasPureGlucose && !hasPureFructose && hasMixed) {
     note.style.background = '#fff7ed'; note.style.borderColor = '#fed7aa'; note.style.color = '#92400e';
-    note.textContent = T('noteMixedOnly');
+    note.textContent = '⚠ With only mixed sources (sucrose/isomaltulose) you can add carbs but cannot independently adjust the glucose:fructose ratio beyond 1:1.';
   } else if (hasPureGlucose && !hasPureFructose && !hasMixed) {
     note.style.background = '#fff7ed'; note.style.borderColor = '#fed7aa'; note.style.color = '#92400e';
-    note.textContent = T('noteGluOnly');
+    note.textContent = '⚠ With only glucose sources you can add more carbs but cannot increase fructose — your ratio may not reach 1:0.8.';
   } else if (hasPureFructose && !hasPureGlucose && !hasMixed) {
     note.style.background = '#fff7ed'; note.style.borderColor = '#fed7aa'; note.style.color = '#92400e';
-    note.textContent = T('noteFruOnly');
+    note.textContent = '⚠ With only fructose you can boost fructose but cannot add glucose — useful if your current mix is too glucose-heavy.';
   } else {
     note.style.background = '#eff6ff'; note.style.borderColor = '#bfdbfe'; note.style.color = '#1e40af';
-    note.textContent = T('noteCombined');
+    note.textContent = 'ℹ We\'ll calculate the best combination from what you have selected.';
   }
 }
 
 function confirmAddables() {
-  if (selectedAddables.size === 0) { alert(T('confirmAddablesAlert')); return; }
-  const labels = ADDABLE_TYPES.filter(t => selectedAddables.has(t.value)).map(t => currentLang==='fr'?(t.label_fr||t.label):t.label).join(', ');
+  if (selectedAddables.size === 0) { alert('Please select at least one ingredient you have available to add.'); return; }
+  const labels = ADDABLE_TYPES.filter(t => selectedAddables.has(t.value)).map(t => t.label).join(', ');
   markDone('addables', labels);
   renderTargets();
   openSection('targets');
@@ -1400,20 +1103,18 @@ function renderResults() {
   const bd = baseData;
 
   // Sport tips
-  const sName = currentLang === 'fr' ? (s.name_fr || s.name) : s.name;
-  const sTips = (currentLang === 'fr' && s.tips_fr) ? s.tips_fr : s.tips;
-  setText('sport-targets-label', T('sportTargetsLabel', sName));
-  setHTML('sport-tips-grid', sTips.map(t =>
+  setText('sport-targets-label', s.name + ' — typical targets');
+  setHTML('sport-tips-grid', s.tips.map(t =>
     `<div class="sport-tip-card"><div class="sport-tip-label">${t.label}</div><div class="sport-tip-val">${t.val}</div><div class="sport-tip-note">${t.note}</div></div>`
   ).join(''));
 
-  setText('sub-results', s.icon + ' ' + sName);
+  setText('sub-results', s.icon + ' ' + s.name);
 
   recalc();
 }
 
 function recalc() {
-  if (!baseData.ready) return;
+  if (!baseData.totalCarbs && !baseData.totalPowder) return;
   const s        = selectedSport;
   const target   = selectedTargetEnergy;
   const ratioFru = selectedRatio;
@@ -1425,20 +1126,20 @@ function recalc() {
 
   // How much extra glucose/fructose the base mix still needs
   let gNeed = Math.max(0, glucoseTarget  - (baseData.glucose  || 0));
-  let fNeed = Math.max(0, fructoseTarget - (baseData.fructose || 0));
+  const fNeed = Math.max(0, fructoseTarget - (baseData.fructose || 0));
 
-  // Hard 10% concentration cap — applies universally to all carb sources
-  const maxTotalAdd = Math.max(0, bottle * 0.10 - (baseData.totalCarbs || 0));
+  // Cap high-osmolality glucose sources at 10% concentration to avoid GI issues
+  const highOsmSources = ['maltodextrin','glucose','trehalose','cluster'];
+  const glucoseSourceIsHighOsm = highOsmSources.some(v => selectedAddables.has(v));
   let concCapNote = null;
-  const rawNeed = gNeed + fNeed;
-  if (rawNeed > maxTotalAdd + 0.05) {
-    const scale = rawNeed > 0 ? maxTotalAdd / rawNeed : 0;
-    gNeed = gNeed * scale;
-    fNeed = fNeed * scale;
-    concCapNote = T('concCapUniversal');
+  if (glucoseSourceIsHighOsm && gNeed > 0) {
+    const maxTotalCarbs   = bottle * 0.10;
+    const maxGluAdd       = Math.max(0, maxTotalCarbs - (baseData.totalCarbs || 0) - fNeed);
+    if (gNeed > maxGluAdd) {
+      gNeed = maxGluAdd;
+      concCapNote = `Addition capped — adding more maltodextrin, dextrose or trehalose beyond this point would push concentration above 10%, increasing GI risk. To reach your full energy target, increase your bottle size or swap some glucose for fructose.`;
+    }
   }
-
-  const glucoseSourceIsHighOsm = ['maltodextrin','glucose','trehalose','cluster'].some(v => selectedAddables.has(v));
 
   // Classify available addables
   const hasPureGlucose  = ['maltodextrin','glucose','trehalose','cluster'].some(v => selectedAddables.has(v));
@@ -1448,15 +1149,15 @@ function recalc() {
   const hasMixed        = hasSucrose || hasIsomaltulose;
 
   const glucoseSourceLabel =
-    selectedAddables.has('maltodextrin') ? carbLabel('maltodextrin') :
-    selectedAddables.has('glucose')      ? carbLabel('glucose') :
-    selectedAddables.has('trehalose')    ? carbLabel('trehalose') :
-    selectedAddables.has('cluster')      ? carbLabel('cluster') : null;
+    selectedAddables.has('maltodextrin') ? 'Maltodextrin' :
+    selectedAddables.has('glucose')      ? 'Glucose' :
+    selectedAddables.has('trehalose')    ? 'Trehalose' :
+    selectedAddables.has('cluster')      ? 'Cluster dextrin' : null;
 
   const mixedLabel =
-    hasSucrose && hasIsomaltulose ? carbLabel('sucrose') :
-    hasIsomaltulose               ? carbLabel('isomaltulose') :
-    hasSucrose                    ? carbLabel('sucrose') : null;
+    hasSucrose && hasIsomaltulose ? 'Sucrose' :
+    hasIsomaltulose               ? 'Isomaltulose' :
+    hasSucrose                    ? 'Sucrose' : null;
 
   // ── SOLVE ──────────────────────────────────────────────────────────────
   // Unconstrained cases: fill gNeed + fNeed exactly with available ingredients.
@@ -1480,13 +1181,13 @@ function recalc() {
   if (hasPureGlucose && (hasPureFructose || fNeed <= 0.05)) {
     // ── Unconstrained: have everything we need ───────────────────────────
     if (gNeed > 0.05) additions.push({ label: glucoseSourceLabel, grams: gNeed });
-    if (fNeed > 0.05 && hasPureFructose) additions.push({ label: carbLabel('fructose'), grams: fNeed });
+    if (fNeed > 0.05 && hasPureFructose) additions.push({ label: 'Fructose', grams: fNeed });
     addedGlucose = gNeed;
     addedFructose = hasPureFructose ? fNeed : 0;
 
   } else if (hasPureFructose && !hasPureGlucose && !hasMixed && gNeed <= 0.05) {
     // ── Unconstrained: base already covers glucose ───────────────────────
-    if (fNeed > 0.05) additions.push({ label: carbLabel('fructose'), grams: fNeed });
+    if (fNeed > 0.05) additions.push({ label: 'Fructose', grams: fNeed });
     addedGlucose  = 0;
     addedFructose = fNeed;
 
@@ -1499,7 +1200,7 @@ function recalc() {
     if (pureGluNeeded > 0.05) additions.push({ label: glucoseSourceLabel, grams: pureGluNeeded });
     addedGlucose  = mixedGluContrib + pureGluNeeded;
     addedFructose = mixedGrams * 0.5;
-    if (fNeed > 0.05) limitation = T('limitationMixedFru', mixedLabel, ratioFru.toFixed(2));
+    if (fNeed > 0.05) limitation = `${mixedLabel} is your fructose source but also adds glucose, so the ratio will be close to 1:${ratioFru.toFixed(2)} but not exact. Adding pure fructose would give precise control.`;
 
   } else if (hasPureFructose && hasMixed && !hasPureGlucose) {
     // ── Mixed for glucose + pure fructose top-up ─────────────────────────
@@ -1507,36 +1208,29 @@ function recalc() {
     const mixedFruContrib = mixedGrams * 0.5;
     const pureFruNeeded   = Math.max(0, fNeed - mixedFruContrib);
     if (mixedGrams    > 0.05) additions.push({ label: mixedLabel,  grams: mixedGrams });
-    if (pureFruNeeded > 0.05) additions.push({ label: carbLabel('fructose'), grams: pureFruNeeded });
+    if (pureFruNeeded > 0.05) additions.push({ label: 'Fructose',  grams: pureFruNeeded });
     addedGlucose  = mixedGrams * 0.5;
     addedFructose = mixedFruContrib + pureFruNeeded;
-    if (gNeed > 0.05) limitation = T('limitationMixedGlu', mixedLabel, ratioFru.toFixed(2));
+    if (gNeed > 0.05) limitation = `${mixedLabel} is your glucose source but also adds fructose, so the ratio will be close to 1:${ratioFru.toFixed(2)} but not exact. Adding pure maltodextrin would give precise control.`;
 
   } else if (hasMixed && !hasPureGlucose && !hasPureFructose) {
     // ── Constrained: only a 50/50 source ─────────────────────────────────
     const mixedForGlu = gNeed > 0 ? gNeed / 0.5 : Infinity;
     const mixedForFru = fNeed > 0 ? fNeed / 0.5 : Infinity;
 
-    // Add enough mixed to fill the larger gap, hard-capped at 10% concentration
-    let mixedB = Math.min(
-      maxTotalAdd,
-      Math.max(0,
-        isFinite(mixedForGlu) ? mixedForGlu : 0,
-        isFinite(mixedForFru) ? mixedForFru : 0
-      )
+    // Add enough mixed to fill the larger gap (targets the user's energy slider)
+    const mixedB = Math.max(0,
+      isFinite(mixedForGlu) ? mixedForGlu : 0,
+      isFinite(mixedForFru) ? mixedForFru : 0
     );
-    if (mixedB < Math.max(isFinite(mixedForGlu) ? mixedForGlu : 0, isFinite(mixedForFru) ? mixedForFru : 0) - 0.05) {
-      concCapNote = T('concCapMixed', mixedLabel);
-    }
     const addB_glu = mixedB * 0.5, addB_fru = mixedB * 0.5;
 
     const mixedBullets = [
-      T('bulletMixedAdds', Math.round(mixedB), mixedLabel, Math.round(addB_glu), Math.round(addB_fru), target),
-      ...(concCapNote ? [concCapNote] : []),
-      T('bulletMixedFixed', mixedLabel),
+      `Adds ${Math.round(mixedB)}g ${mixedLabel} (${Math.round(addB_glu)}g glucose + ${Math.round(addB_fru)}g fructose) for maximum energy toward your ${target}g/hr goal.`,
+      `${mixedLabel} adds glucose and fructose in a fixed 1:1 ratio — the glucose:fructose ratio cannot be adjusted independently.`,
     ];
     scenarioB = {
-      label: T('scenarioMaxEnergy'),
+      label: 'Maximum safe energy',
       additions: mixedB > 0.05 ? [{ label: mixedLabel, grams: mixedB }] : [],
       addedGlu: addB_glu, addedFru: addB_fru,
       note: `<ul style="margin:4px 0 0;padding-left:16px;list-style-type:disc;">${mixedBullets.map(b=>`<li style="margin-bottom:5px;">${b}</li>`).join('')}</ul>`
@@ -1561,7 +1255,7 @@ function recalc() {
       const maxTotalCarbs = bottle * 0.10;
       maxFromConcCap = Math.max(0, maxTotalCarbs - (baseData.totalCarbs || 0));
       if (energyNeed > maxFromConcCap) {
-        concCapNote = T('concCapGluOnly');
+        concCapNote = `Addition capped — adding more maltodextrin, dextrose or trehalose beyond this point would push concentration above 10%, increasing GI risk. To reach your full energy target, increase your bottle size or swap some glucose for fructose.`;
       }
     }
 
@@ -1570,13 +1264,13 @@ function recalc() {
 
     const gluBullets = [
       gluCappedByCeiling
-        ? T('bulletGluCeiling', Math.round(addB), glucoseSourceLabel, sglt1Ceiling, baseFru > 0.5 ? T('raisedByFru') : '', Math.round(baseGlu + addB + baseFru))
-        : T('bulletGluTarget', Math.round(addB), glucoseSourceLabel, target, Math.round(baseGlu + addB + baseFru)),
-      ...(concCapNote ? [T('concCapGluOnly')] : []),
-      T('bulletGluFixed', glucoseSourceLabel, Math.round(baseFru)),
+        ? `Adds ${Math.round(addB)}g ${glucoseSourceLabel} to reach the SGLT-1 absorption ceiling of ~${sglt1Ceiling}g/hr glucose${baseFru > 0.5 ? ' (raised because fructose is present in your base mix)' : ''}. Total energy: ~${Math.round(baseGlu + addB + baseFru)}g/hr. Adding more beyond this will not increase absorbed energy — it will remain in the gut and cause bloating or cramping.`
+        : `Adds ${Math.round(addB)}g ${glucoseSourceLabel} to reach your target of ${target}g/hr. Total energy: ~${Math.round(baseGlu + addB + baseFru)}g/hr.`,
+      ...(concCapNote ? [`Addition capped at 10% concentration — adding more would push concentration above 10% and increase GI risk. To reach your full energy target, increase your bottle size or swap some glucose for fructose.`] : []),
+      `${glucoseSourceLabel} only adds glucose — fructose stays at your base level of ${Math.round(baseFru)}g so the ratio cannot be independently adjusted.`,
     ];
     scenarioB = {
-      label: T('scenarioMaxEnergy'),
+      label: 'Maximum safe energy',
       additions: addB > 0.05 ? [{ label: glucoseSourceLabel, grams: addB }] : [],
       addedGlu: addB, addedFru: 0,
       note: `<ul style="margin:4px 0 0;padding-left:16px;list-style-type:disc;">${gluBullets.map(b=>`<li style="margin-bottom:5px;">${b}</li>`).join('')}</ul>`
@@ -1601,18 +1295,18 @@ function recalc() {
     let addB             = Math.min(glut5MaxAdd, fNeed);
     const fruCappedByCeiling = fNeed > glut5MaxAdd;
     const bindingLimit   = maxFruFor1to1 <= glut5Ceiling
-      ? T('bindingLimit1to1', Math.round(maxFruFor1to1), Math.round(baseGlu))
-      : T('bindingLimitGlut5', glut5Ceiling);
+      ? `a 1:1 ratio ceiling (${Math.round(maxFruFor1to1)}g fructose to match your ${Math.round(baseGlu)}g glucose)`
+      : `the GLUT-5 absorption ceiling of ~${glut5Ceiling}g/hr`;
 
     const fruBullets = [
       fruCappedByCeiling
-        ? T('bulletFruCeiling', Math.round(addB), bindingLimit, baseGlu > 0.5 ? T('raisedByGlu') : '', Math.round(baseGlu + baseFru + addB), baseGlu > 0 ? ((baseFru + addB) / baseGlu).toFixed(2) : '—')
-        : T('bulletFruTarget', Math.round(addB), target, Math.round(baseGlu + baseFru + addB), baseGlu > 0 ? ((baseFru + addB) / baseGlu).toFixed(2) : '—'),
-      T('bulletFruFixed', Math.round(baseGlu)),
+        ? `Adds ${Math.round(addB)}g fructose, limited by ${bindingLimit}${baseGlu > 0.5 ? ' (GLUT-5 ceiling raised because glucose is present in your base mix)' : ''}. Total energy: ~${Math.round(baseGlu + baseFru + addB)}g/hr at a 1:${baseGlu > 0 ? ((baseFru + addB) / baseGlu).toFixed(2) : '—'} ratio. Adding more fructose beyond this point risks GI distress without increasing absorbed energy.`
+        : `Adds ${Math.round(addB)}g fructose to reach your target of ${target}g/hr. Total energy: ~${Math.round(baseGlu + baseFru + addB)}g/hr at a 1:${baseGlu > 0 ? ((baseFru + addB) / baseGlu).toFixed(2) : '—'} ratio.`,
+      `Fructose only adds fructose — glucose stays at your base level of ${Math.round(baseGlu)}g so the ratio cannot be independently adjusted.`,
     ];
     scenarioB = {
-      label: T('scenarioMaxEnergy'),
-      additions: addB > 0.05 ? [{ label: carbLabel('fructose'), grams: addB }] : [],
+      label: 'Maximum safe energy',
+      additions: addB > 0.05 ? [{ label: 'Fructose', grams: addB }] : [],
       addedGlu: 0, addedFru: addB,
       note: `<ul style="margin:4px 0 0;padding-left:16px;list-style-type:disc;">${fruBullets.map(b=>`<li style="margin-bottom:5px;">${b}</li>`).join('')}</ul>`
     };
@@ -1638,11 +1332,11 @@ function recalc() {
     const excessGlu = Math.max(0, actualGlucose - glucoseCeiling);
     const excessFru = Math.max(0, actualFructose - fructoseCeiling);
     if (excessGlu > 1 && excessFru > 1) {
-      absorptionWarning = T('absWarnBoth', Math.round(actualGlucose), glucoseCeiling, Math.round(actualFructose), fructoseCeiling, Math.round(excessGlu), Math.round(excessFru));
+      absorptionWarning = `Both glucose (${Math.round(actualGlucose)}g/hr, ceiling ~${glucoseCeiling}g) and fructose (${Math.round(actualFructose)}g/hr, ceiling ~${fructoseCeiling}g) exceed their transporter limits. ~${Math.round(excessGlu)}g excess glucose and ~${Math.round(excessFru)}g excess fructose will sit unabsorbed and are likely to cause GI distress. Reduce your energy target or increase bottle size.`;
     } else if (excessGlu > 1) {
-      absorptionWarning = T('absWarnGlu', Math.round(actualGlucose), glucoseCeiling, Math.round(excessGlu), actualFructose < 5 ? T('absHintAddFru') : T('absHintReduceGlu'));
+      absorptionWarning = `Glucose (${Math.round(actualGlucose)}g/hr) exceeds the SGLT-1 ceiling of ~${glucoseCeiling}g/hr. ~${Math.round(excessGlu)}g will be unabsorbed. ${actualFructose < 5 ? 'Adding a fructose source would raise this ceiling to ~72g/hr.' : 'Reduce your energy target or lower the glucose proportion.'}`;
     } else if (excessFru > 1) {
-      absorptionWarning = T('absWarnFru', Math.round(actualFructose), fructoseCeiling, Math.round(excessFru), actualGlucose < 5 ? T('absHintAddGlu') : T('absHintReduceFru'));
+      absorptionWarning = `Fructose (${Math.round(actualFructose)}g/hr) exceeds the GLUT-5 ceiling of ~${fructoseCeiling}g/hr. ~${Math.round(excessFru)}g will be unabsorbed and is likely to cause GI distress. ${actualGlucose < 5 ? 'Adding a glucose source would raise this ceiling to ~54g/hr.' : 'Reduce your energy target or lower the fructose ratio.'}`;
     }
   }
   // ─────────────────────────────────────────────────────────────────────────
@@ -1664,7 +1358,7 @@ function recalc() {
             <span class="add-list-name">+ ${a.label}</span>
             <span class="add-list-amount add">${Math.round(a.grams)}g</span>
           </div>`).join('')
-      : `<div class="add-list-row" style="padding-left:28px;"><span class="add-list-name" style="font-style:italic;">${T('nothingToAdd')}</span><span class="add-list-amount">0g</span></div>`;
+      : `<div class="add-list-row" style="padding-left:28px;"><span class="add-list-name" style="font-style:italic;">Nothing to add</span><span class="add-list-amount">0g</span></div>`;
     const noteHTML = extraNote
       ? `<div style="font-size:11px; color:#92400e; background:#fff7ed; border:1px solid #fed7aa; border-radius:6px; padding:8px 10px; margin:6px 0 4px; line-height:1.5;"><strong>⚠</strong> ${extraNote}</div>`
       : '';
@@ -1673,7 +1367,7 @@ function recalc() {
         <div style="font-size:12px; font-weight:600; color:#166534; margin-bottom:6px; font-family:var(--font-display);">${sc.label}</div>
         ${rows}
         <div class="add-list-row" style="padding-left:28px; font-size:12px; border-top:1px solid var(--border); margin-top:4px;">
-          <span style="color:var(--muted);">${T('achievedLabel', Math.round(scTotal), scRatio, scConc)}</span>
+          <span style="color:var(--muted);">Achieved: ${Math.round(scTotal)}g/hr &nbsp;·&nbsp; ratio 1:${scRatio} &nbsp;·&nbsp; ${scConc}% concentration</span>
         </div>
         <div style="font-size:11px; color:var(--muted); padding:6px 0 4px; line-height:1.5;">${sc.note}</div>
         ${noteHTML}
@@ -1682,13 +1376,13 @@ function recalc() {
 
   const absorptionHTML = absorptionWarning
     ? `<div class="add-list-row" style="background:#fef2f2; border-top:1px solid #fecaca; padding:10px 16px;">
-        <span style="font-size:12px; color:#991b1b; line-height:1.6;"><strong>${T('giRiskLabel')}</strong> ${absorptionWarning}</span>
+        <span style="font-size:12px; color:#991b1b; line-height:1.6;"><strong>🚨 GI risk:</strong> ${absorptionWarning}</span>
        </div>`
     : '';
 
   const concCapHTML = concCapNote
     ? `<div class="add-list-row" style="background:#fff7ed; border-top:1px solid #fed7aa; padding:10px 16px;">
-        <span style="font-size:12px; color:#92400e; line-height:1.6;"><strong>${T('concCapLabel')}</strong> ${concCapNote}</span>
+        <span style="font-size:12px; color:#92400e; line-height:1.6;"><strong>⚠ 10% concentration cap:</strong> ${concCapNote}</span>
        </div>`
     : '';
 
@@ -1697,23 +1391,23 @@ function recalc() {
     : additions.length
       ? additions.map(a => `
           <div class="add-list-row">
-            <span class="add-list-name">+ ${T('labelToAdd', a.label)}</span>
+            <span class="add-list-name">+ ${a.label} to add</span>
             <span class="add-list-amount">${Math.round(a.grams)}g</span>
           </div>`).join('')
       : `<div class="add-list-row">
-           <span class="add-list-name" style="font-style:italic; color:var(--green);">${T('alreadyMeetsTarget')}</span>
+           <span class="add-list-name" style="font-style:italic; color:var(--green);">✓ Your mix already meets the target — nothing to add</span>
            <span class="add-list-amount" style="color:var(--green);">0g</span>
          </div>`;
 
   list.innerHTML = `
     <div class="add-list-row">
-      <span class="add-list-name">${T('baseMixLabel')}</span>
+      <span class="add-list-name">Your base mix (as entered)</span>
       <span class="add-list-amount" style="color:var(--text);">${Math.round(baseData.baseMixWeight || 0)}g</span>
     </div>
     ${additionRowsHTML}
     ${!scenarioB ? `
     <div class="add-list-row total">
-      <span class="add-list-name">${T('totalPowderIntoBottle')}</span>
+      <span class="add-list-name">Total powder into bottle</span>
       <span class="add-list-amount">${Math.round(totalPowder)}g</span>
     </div>
     ${concCapHTML}` : ''}
@@ -1729,15 +1423,14 @@ function recalc() {
   if (warn) {
     if (isFinite(conc) && conc > s.concWarningPct) {
       warn.style.display = 'block';
-      warn.textContent = currentLang === 'fr' ? (s.concWarningMsg_fr || s.concWarningMsg) : s.concWarningMsg;
+      warn.textContent = s.concWarningMsg;
     } else {
       warn.style.display = 'none';
     }
   }
 
-  const mixTip = currentLang === 'fr' ? (s.mixingTip_fr || s.mixingTip) : s.mixingTip;
   setHTML('mixing-tip',
-    `<strong>${T('howToMix')}</strong> ` + mixTip.replace('{BOTTLE}', '<strong>' + bottle + 'ml</strong>'));
+    '<strong>How to mix:</strong> ' + s.mixingTip.replace('{BOTTLE}', '<strong>' + bottle + 'ml</strong>'));
 }
 
 /* ═══════════════ RESET ═══════════════ */
