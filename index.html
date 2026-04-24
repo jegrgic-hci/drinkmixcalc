@@ -38,6 +38,10 @@ body { background: var(--bg); color: var(--text); font-family: var(--font-body);
 .lang-btn { font-family:var(--font-mono); font-size:11px; font-weight:500; color:var(--muted); background:transparent; border:none; border-radius:4px; padding:3px 9px; cursor:pointer; letter-spacing:0.04em; transition:background 0.15s, color 0.15s; }
 .lang-btn.active { background:var(--surface); color:var(--text); box-shadow:0 1px 3px rgba(0,0,0,0.1); }
 
+/* ── WIP banner ── */
+.wip-banner { background:#fefce8; border-bottom:1px solid #fde68a; padding:7px clamp(1rem,5vw,3rem); display:flex; align-items:center; gap:8px; font-size:13px; color:#92400e; font-family:var(--font-body); }
+.wip-banner strong { font-weight:600; }
+
 main { max-width: 860px; margin: 0 auto; padding: clamp(1.5rem,4vw,3rem) clamp(1rem,4vw,2rem); }
 
 /* ── Hero ── */
@@ -318,6 +322,11 @@ footer a { color: var(--muted); text-decoration: underline; }
     </div>
   </div>
 </header>
+
+<div class="wip-banner">
+  <span>🚧</span>
+  <span data-i18n="wipBanner"><strong>Work in progress</strong> — this tool is still under development. Results may change as we refine the calculations. Feedback welcome.</span>
+</div>
 
 <main>
 
@@ -617,6 +626,7 @@ let currentLang = 'en';
 
 const TRANSLATIONS = {
   en: {
+    wipBanner:'<strong>Work in progress</strong> — this tool is still under development. Results may change as we refine the calculations. Feedback welcome.',
     badge:'ENDURANCE DRINK CALCULATOR',
     heroH1:'Build the <em>perfect</em><br>endurance drink.',
     heroP:'This tool helps you maximise total carbohydrate energy (g/hr) in your drink mix by optimising the glucose-to-fructose ratio and carb concentration.',
@@ -731,6 +741,7 @@ const TRANSLATIONS = {
     absHintReduceFru:'Reduce your energy target or lower the fructose ratio.',
   },
   fr: {
+    wipBanner:"<strong>En cours de développement</strong> — cet outil est toujours en cours de développement. Les résultats peuvent changer au fur et à mesure que nous affinons les calculs. Vos retours sont les bienvenus.",
     badge:"CALCULATEUR DE BOISSON D'ENDURANCE",
     heroH1:"Créez la boisson<br><em>idéale</em> d'endurance.",
     heroP:"Cet outil vous aide à maximiser l'apport énergétique glucidique total (g/h) de votre boisson en optimisant le ratio glucose-fructose et la concentration en glucides.",
